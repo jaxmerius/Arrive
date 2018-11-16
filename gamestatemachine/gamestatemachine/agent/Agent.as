@@ -1,4 +1,4 @@
-package agent 
+﻿package agent 
 {
 	import agent.states.ChaseState;
 	import agent.states.ConfusionState;
@@ -6,6 +6,7 @@ package agent
 	import agent.states.IAgentState;
 	import agent.states.IdleState;
 	import agent.states.WanderState;
+	import agent.states.Advance;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -17,6 +18,7 @@ package agent
 	{
 		public static const IDLE:IAgentState = new IdleState(); //Define possible states as static constants
 		public static const WANDER:IAgentState = new WanderState();
+		public static const ADVANCE:IAgentState = new Advance();
 		public static const CHASE:IAgentState = new ChaseState();
 		public static const FLEE:IAgentState = new FleeState();
 		public static const CONFUSED:IAgentState = new ConfusionState();
@@ -57,7 +59,8 @@ package agent
 			graphics.lineStyle(0, 0x00FF00,.2);
 			graphics.drawCircle(0, 0, chaseRadius);
 			
-			_currentState = IDLE; //Set the initial state
+			///////////////////////////////////////////////////////////////////////
+			_currentState = ADVANCE; //Set the initial state
 		}
 		/**
 		 * Outputs a line of text above the agent's head
