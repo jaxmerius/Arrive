@@ -33,6 +33,7 @@
 		public var buds:Array;
 		
 		public var targetUnit:Object;
+		public var attacker:Object;
 		
 		public var baseJuxt:Number = 0;
 		//base juxtaposition, compares distance from both bases.
@@ -48,10 +49,14 @@
 		public var velocity:Point = new Point();
 		public var speed:Number = 0;
 		
-		public var nearRadius:Number = 50; //If a unit is within this radius, ...
-		public var farRadius:Number = 100; //If a unit is within this radius, RETREAT, or PURSUE, or even ignor.
-		public var unitCounter:int = 0; //Counts updates. Timer.
+		public var nearRadius:Number = 50; 
+		//If a unit is within this radius, ...
+		public var farRadius:Number = 100; 
+		//If a unit is within this radius, RETREAT, or PURSUE, or even ignor.
+		public var unitCounter:int = 0; 
+		//Counts updates. Timer.
 		
+		public var beingAttacked:Boolean = false
 		
 		public var isRed:Boolean = true;
 		//denotes red team.
@@ -59,7 +64,7 @@
 		public var unitType:Number = 1;
 		public var unitHealth:Number = 10;
 		//When health is 0, unit needs to be set to die
-		public var unitAttack:Number = 10;
+		public var unitAttack:Number = 1;
 		//Base Damage from unit
 		public var unitAttackCooldown:Number = 10;
 		//wait time between attacks
@@ -75,6 +80,8 @@
 			if(isRed == true){
 				if (unitType == 0){
 					unitMC = new RedUnit0();
+					unitMC.width/=1.5
+					unitMC.height/=1.5
 					unitSpeed = 0;
 					graphics.lineStyle(0, 0xFF0000, .2);
 					graphics.drawCircle(0, 0, nearRadius);
@@ -82,18 +89,26 @@
 					graphics.drawCircle(0, 0, farRadius);
 				}else if (unitType == 2){
 					unitMC = new RedUnit2();
+					unitMC.width/=2
+					unitMC.height/=2
 					unitSpeed = 1.75;
 				}else if (unitType == 3){
 					unitMC = new RedUnit3();
+					unitMC.width/=2
+					unitMC.height/=2
 					unitSpeed = 1.5;
 				}else{
 					unitMC = new RedUnit1();
+					unitMC.width/=2
+					unitMC.height/=2
 					unitSpeed = 2;
 				}
 				
 			}else{
 				if(unitType == 0){
 					unitMC = new BlueUnit0();
+					unitMC.width/=1.5
+					unitMC.height/=1.5
 					unitSpeed = 0;
 					graphics.lineStyle(0, 0xFF0000, .2);
 					graphics.drawCircle(0, 0, nearRadius);
@@ -101,13 +116,19 @@
 					graphics.drawCircle(0, 0, farRadius);
 				}else if(unitType == 2){
 					unitMC = new BlueUnit2();
-					unitSpeed = 1.75;
+					unitMC.width/=2
+					unitMC.height/=2
+					unitSpeed = .875;
 				}else if(unitType == 3){
 					unitMC = new BlueUnit3();
-					unitSpeed = 1.5;
+					unitMC.width/=2
+					unitMC.height/=2
+					unitSpeed = .75;
 				}else{
 					unitMC = new BlueUnit1();
-					unitSpeed = 2;
+					unitMC.width/=2
+					unitMC.height/=2
+					unitSpeed = 1;
 				}
 				
 			}
@@ -125,19 +146,11 @@
 				unitMC = new BlueUnit1();
 			}
 
-
-			//graphics.lineStyle(0, 0xFF0000, .2);
-			//graphics.drawCircle(0, 0, nearRadius);
-			//graphics.lineStyle(0, 0x00FF00,.2);
-			//graphics.drawCircle(0, 0, farRadius);
 			
 			currentState = ORIENT; //Set the initial state
 		}
 
-		//public function get canSeeMouse():Boolean {
-//			var dot:Number = mouseX * velocity.x + mouseY * velocity.y;
-//			return dot > 0;
-//		}
+
 		public function get distanceToUnit():Number {
 			var dx:Number = x - targetUnit.x;
 			var dy:Number = y - targetUnit.y;
@@ -152,6 +165,13 @@
 			var dx:Number = x - foes[0].x;
 			var dy:Number = y - foes[0].y;
 			return Math.atan2(dy, dx);
+		}
+		
+		public function get nearTo():Number {
+			
+			var dx:Number = (width/4)+(targetUnit.width/4);
+			var dy:Number = (height/4)+(targetUnit.width/4);
+			return Math.sqrt(dx * dx + dy * dy);
 		}
 		
 		public function get distanceBetweenBases():Number {
@@ -192,13 +212,7 @@
 				velocity.y = Math.sin(1);
 			}
 		}
-		public function faceMouse(multiplier:Number = 1):void {
-			var dx:Number = stage.mouseX - x;
-			var dy:Number = stage.mouseY - y;
-			var rad:Number = Math.atan2(dy, dx);
-			velocity.x = multiplier*Math.cos(rad);
-			velocity.y = multiplier*Math.sin(rad);
-		}
+
 		public function faceUnit(multiplier:Number = 1):void {
 			var udx:Number = targetUnit.x - x;
 			var udy:Number = targetUnit.y - y;
@@ -209,9 +223,11 @@
 
 		public function update():void {
 			
-			if(unitCounter == 0){
+			//if(unitCounter == 0){
 				baseJuxt = distanceBetweenBases;
-			}
+				//trace(baseJuxt);
+				
+			//}
 			
 //			if(unitHealth <= 0){
 //				setState(DIE);
