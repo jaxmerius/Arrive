@@ -1,4 +1,4 @@
-﻿package unit.states 
+package unit.states 
 {
 	import unit.Unit;
 	
@@ -8,15 +8,21 @@
 	{
 
 		
-		public function RetreatState() 
-		{
-			
-		}
+
 
 		public function update(u:Unit):void
 		{
+			if(u.unitHealth <= 0){
+				u.setState(Unit.DIE);
+			}
+			
 			if(u.targetUnit.unitHealth <= 0){
 				u.setState(Unit.ADVANCE);
+			}
+			
+			if(u.beingAttacked == true){
+				u.targetUnit = u.attacker;
+				u.setState(Unit.PURSUE);
 			}
 			
 			var nearTo:Number = (u.width/4)+(u.targetUnit.width/4);
@@ -42,7 +48,7 @@
 
 			u.faceUnit(1);
 			u.speed = 0;
-			trace("RETREAT!!!" + u.unitType + u.targetUnit.unitType);
+			//trace("RETREAT!!!");
 		}
 		
 		public function exit(u:Unit):void
