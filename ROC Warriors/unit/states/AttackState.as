@@ -6,14 +6,22 @@
 		private var attackCounter:Number = 2
 		public function update(u:Unit):void
 		{
+			u.faceUnit(1);
 			
 			if (u.unitCounter == attackCounter){
-				u.targetUnit.unitHealth = 0; //u.unitAttack;
-				trace("TARGET HEALTH !!!!!!!!!!!!" + u.targetUnit.unitHealth);
+				
+				u.targetUnit.unitHealth -= u.unitAttack;
+				
+				//u.targetUnit.unitHealth = 0; //u.unitAttack;
+				trace("TARGET HEALTH !!!!!!!!!!!!" + u.targetUnit.unitHealth + "    " + u.baseJuxt);
 				
 				
 			}
 			
+			if(u.distanceToUnit > (3* u.nearTo)){
+				u.setState(Unit.PURSUE);
+			
+			}
 			if (u.unitCounter >= 15){
 				u.unitCounter =0;
 				//reset counter
@@ -37,12 +45,23 @@
 			if (u.unitType == 2){
 				attackCounter = 13;
 			}
-			trace("ATTACK!!!11111111111111111111!!!!!!!!!!!!" + u.targetUnit.unitHealth);
+			u.faceUnit(1);
+			if(u.targetUnit.unitHealth <= 0){
+				u.setState(Unit.ORIENT);
+			}
+			u.targetUnit.attacker = u;
+			u.targetUnit.beingAttacked = true;
+			//trace("ATTACK!!!11111111111111111111!!!!!!!!!!!!" + u.targetUnit.unitHealth);
 		}
 		
 		public function exit(u:Unit):void
 		{
-			
+			if(u.beingAttacked == true){
+				if(u.attacker.unitHealth <= 0){
+					
+					u.beingAttacked == false;
+				}
+			}
 		}
 	}
 }
