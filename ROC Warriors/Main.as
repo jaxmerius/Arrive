@@ -92,8 +92,8 @@
 			
 			cursor = new Cursor();
 			
-			cursor.x = segments[0].x;
-			cursor.y = segments[0].y;
+			cursor.x = segments[0].getPin().x;
+			cursor.y = segments[0].getPin().y;
 			
 			addChild(cursor);
 
@@ -137,7 +137,8 @@
 
 			if (blueCounter > 19) {
 				
-				createBlueUnit(1, segments[0].x, segments[0].y);
+				createBlueUnit(1, segments[0].getPin().x, segments[0].getPin().y);
+				blueCounter = 0;
 			}
 		}
 
@@ -195,8 +196,8 @@
 				position(segmentB, segmentA);
 			}
 			
-			cursor.x = segments[0].x;
-			cursor.y = segments[0].y;
+			cursor.x = segments[0].getPin().x;
+			cursor.y = segments[0].getPin().y;
 
 			for each(var red: Unit in redUnits) {
 				
