@@ -17,7 +17,7 @@ package unit.states
 			if(u.alpha > 0){
 			u.alpha -= alphaSub
 			}else{
-				u.Purge;
+				u.Purge();
 			}
 //			if (alphaSub == alphaSub1){
 //				alphaSub = -alphaSub2
