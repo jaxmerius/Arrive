@@ -14,6 +14,7 @@
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	
 	public class Agent extends Sprite
 	{
 		public static const IDLE:IAgentState = new IdleState(); //Define possible states as static constants
