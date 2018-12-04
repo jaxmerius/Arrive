@@ -188,17 +188,22 @@ package  unit{
 			
 			return dfr/dbr;
 			
-		}		
-//		public function get distanceToBudBase():Number {
-//			var dbx:Number = x - buds[0].x;
-//			var dby:Number = y - buds[0].y;
-//			return Math.sqrt(dbx * dbx + dby * dby);
-//		}
-//		public function get distanceToFoeBase():Number {
-//			var dfx:Number = x - foes[0].x;
-//			var dfy:Number = y - fors[0].y;
-//			return Math.sqrt(dfx * dfx + dfy * dfy);
-//		}
+		}	
+		
+		
+		
+		public function get distanceToBudBase():Number {
+			var dbx:Number = x - buds[0].x;
+			var dby:Number = y - buds[0].y;
+			return Math.sqrt(dbx * dbx + dby * dby);
+		}
+		public function get distanceToFoeBase():Number {
+			var dfx:Number = x - foes[0].x;
+			var dfy:Number = y - foes[0].y;
+			return Math.sqrt(dfx * dfx + dfy * dfy);
+		}
+		
+		
 		
 		public function randomDirection():void {
 			//var a:Number = Math.random() * 2;
@@ -242,14 +247,14 @@ package  unit{
 		public function update():void {
 			
 			//if(unitCounter == 0){
-				baseJuxt = distanceBetweenBases;
+			baseJuxt = distanceBetweenBases;
 				//trace(baseJuxt);
-				
+
 			//}
 			
-//			if(unitHealth <= 0){
-//				setState(DIE);
-//			}
+			if(unitHealth <= 0){
+				setState(DIE);
+			}
 			
 			//u.setState(Unit.RETREAT);
 			unitCounter++; 
