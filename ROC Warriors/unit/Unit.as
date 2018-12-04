@@ -1,4 +1,4 @@
-﻿package  unit{
+package  unit{
 	import unit.states.PursueState;
 	import unit.states.RetreatState;
 	import unit.states.AdvanceState;
@@ -53,7 +53,7 @@
 		//If a unit is within this radius, ...
 		public var farRadius:Number = 100; 
 		//If a unit is within this radius, RETREAT, or PURSUE, or even ignor.
-		public var unitCounter:int = 0; 
+		public var unitCounter:int = 10; 
 		//Counts updates. Timer.
 		
 		public var beingAttacked:Boolean = false
@@ -219,6 +219,24 @@
 			var urad:Number = Math.atan2(udy, udx);
 			velocity.x = multiplier*Math.cos(urad);
 			velocity.y = multiplier*Math.sin(urad);
+		}
+		
+		//trashPickup, for garbage collection
+		public function Purge():void
+		{
+			var b:int;
+					
+			for (b = 0; b < buds.length; b++)
+			{
+				
+				if (buds[b].name == name)
+				{
+					
+					buds.splice(b, 1);
+					b = buds.length;
+				}
+			}
+			parent.removeChild(this);
 		}
 
 		public function update():void {
