@@ -6,7 +6,8 @@
 
 		public function update(u:Unit):void
 		{
-
+			//trace(u.distanceToFoeBase);
+			
 			if (u.unitHealth == 0)
 			{
 				u.setState(Unit.DIE);
@@ -57,7 +58,7 @@
 								if (foe.unitType == 1)
 								{
 
-									if (Math.random()<(0.25 * u.baseJuxt * u.baseJuxt))
+									if (Math.random () < ((u.distanceToFoeBase / 1000) -0.1))	//(0.25 * u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -70,7 +71,7 @@
 								}
 								else if (foe.unitType == 2)
 								{
-									if (Math.random()<(u.baseJuxt * u.baseJuxt))
+									if (Math.random() <  ((u.distanceToFoeBase / 2000) -0.1))	//(u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -78,12 +79,13 @@
 								}
 								else if (foe.unitType == 3)
 								{
-									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
-									{
-
-										u.setState(Unit.PURSUE);
-									}
-									else if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
+//									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
+//									{
+//
+//										u.setState(Unit.PURSUE);
+//									}
+//									else 
+									if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
 									{
 
 										u.setState(Unit.RETREAT);
@@ -100,7 +102,7 @@
 								if (foe.unitType == 2)
 								{
 
-									if (Math.random()<(0.25 * u.baseJuxt * u.baseJuxt))
+									if (Math.random() < ((u.distanceToFoeBase / 1000) -0.1))	//(0.25 * u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -113,7 +115,7 @@
 								}
 								else if (foe.unitType == 3)
 								{
-									if (Math.random()<(u.baseJuxt * u.baseJuxt))
+									if (Math.random() < ((u.distanceToFoeBase / 2000) -0.1))	//(0.25 * u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -121,12 +123,13 @@
 								}
 								else if (foe.unitType == 1)
 								{
-									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
-									{
-
-										u.setState(Unit.PURSUE);
-									}
-									else if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
+//									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
+//									{
+//
+//										u.setState(Unit.PURSUE);
+//									}
+//									else 
+									if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
 									{
 
 										u.setState(Unit.RETREAT);
@@ -143,7 +146,7 @@
 								if (foe.unitType == 3)
 								{
 
-									if (Math.random()<(0.25 * u.baseJuxt * u.baseJuxt))
+									if (Math.random() < ((u.distanceToFoeBase / 1000) -0.1))	//(0.25 * u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -157,7 +160,7 @@
 								}
 								else if (foe.unitType == 1)
 								{
-									if (Math.random()<(u.baseJuxt * u.baseJuxt))
+									if (Math.random() < ((u.distanceToFoeBase / 2000) -0.1))	//(0.25 * u.baseJuxt * u.baseJuxt))
 									{
 
 										u.setState(Unit.PURSUE);
@@ -165,12 +168,13 @@
 								}
 								else if (foe.unitType == 2)
 								{
-									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
-									{
-
-										u.setState(Unit.PURSUE);
-									}
-									else if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
+//									if (Math.random()<(0.01 * u.baseJuxt * u.baseJuxt / 3))
+//									{
+//
+//										u.setState(Unit.PURSUE);
+//									}
+//									else 
+									if (Math.random()<(0.01 + (u.baseJuxt * 0.01)))
 									{
 
 										u.setState(Unit.RETREAT);
@@ -206,4 +210,3 @@
 		}
 	}
 }
-
