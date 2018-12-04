@@ -12,7 +12,7 @@
 				u.setState(Unit.DIE);
 			}
 
-			if (u.beingAttacked == true)
+			if (u.beingAttacked == true && u.attacker.unitHealth > 0)
 			{
 				u.targetUnit = u.attacker;
 				u.setState(Unit.PURSUE);
@@ -39,11 +39,12 @@
 
 				for each (var foe:Unit in u.foes)
 				{
+					if (foe.unitHealth > 0)
+					{
 					u.targetUnit = foe;
 					
 
-					if (u.targetUnit.unitHealth > 0)
-					{
+					
 						if (u.distanceToUnit < u.nearTo)
 						{
 							u.setState(Unit.ATTACK);
@@ -196,11 +197,13 @@
 		{
 			u.unitMC.gotoAndPlay(3);
 			u.speed = 1 * u.unitSpeed;
+			u.unitCounter = 0;
 		}
 
 		public function exit(u:Unit):void
 		{
-
+			u.unitCounter = 0;
 		}
 	}
 }
+
