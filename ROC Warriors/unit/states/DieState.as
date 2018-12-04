@@ -25,7 +25,7 @@
 		public function enter(u:Unit):void
 		{
 			u.speed = 0;
-			u.unitMC.gotoAndPlay(39);
+			u.unitMC.gotoAndPlay(40);
 			trace("DIE!!!!!");
 			
 			u.myScore += 10;
