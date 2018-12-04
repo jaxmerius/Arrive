@@ -33,6 +33,10 @@
 		private var numSegments: uint = 26;
 		
 		private var cursor: MovieClip;
+		
+		private var _arcButton:archerButton = new archerButton;
+		private var _giButton:giantButton = new giantButton;
+		private var _kniButton:knightButton = new knightButton;
 
 		public function Main(): void {
 
@@ -50,6 +54,25 @@
 			bg.y = 0;
 			bg.width = stage.stageWidth;
 			bg.height = stage.stageHeight;
+			
+			//Player Input Buttons
+			_arcButton.x = 62;
+			_arcButton.y = stage.stageHeight - 32;
+			_arcButton.width = 64;
+			_arcButton.height = 32;
+			addChild(_arcButton);
+			
+			_kniButton.x = 156;
+			_kniButton.y = stage.stageHeight - 32;
+			_kniButton.width = 64;
+			_kniButton.height = 32;
+			addChild(_kniButton);
+			
+			_giButton.x = 250;
+			_giButton.y = stage.stageHeight - 32;
+			_giButton.width = 64;
+			_giButton.height = 32;
+			addChild(_giButton);
 
 			//blueTower
 			blueTower = new BTower();
