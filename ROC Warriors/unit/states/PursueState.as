@@ -16,7 +16,12 @@ package unit.states
 				u.setState(Unit.DIE);
 			}
 			
-
+			
+			if (u.beingAttacked == true && u.attacker.unitHealth > 0)
+			{
+				u.targetUnit = u.attacker;
+				
+			}
 
 
 
@@ -45,6 +50,8 @@ package unit.states
 
 			u.velocity.x = Math.cos(u.radToUnit) * -1;
 			u.velocity.y = Math.sin(u.radToUnit) * -1;
+			
+			u.unitCounter = 0;
 
 			u.speed = 0;
 			//trace("PURSUE!!!");
@@ -52,7 +59,7 @@ package unit.states
 
 		public function exit(u:Unit):void
 		{
-
+			u.unitCounter = 0;
 		}
 
 	}
