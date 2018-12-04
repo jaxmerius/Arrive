@@ -6,7 +6,7 @@
 
 		public function update(u:Unit):void
 		{
-			if (u.unitCounter > 1)
+			if (u.unitCounter > 10)
 			{
 				u.unitCounter = 0;
 				//u.buds[0]
@@ -18,6 +18,11 @@
 				//}else{
 
 				//}
+				if (u.beingAttacked == true && u.attacker.unitHealth > 0)
+				{
+					u.targetUnit = u.attacker;
+					u.setState(Unit.PURSUE);
+				}
 
 
 				for each (var foe:Unit in u.foes)
@@ -46,14 +51,14 @@
 		{
 			u.unitMC.gotoAndPlay(1);
 			u.speed = 0;
-			u.unitCounter = 0;
-			
+
+
 
 		}
 
 		public function exit(u:Unit):void
 		{
-			
+			u.unitCounter = 0;
 		}
 
 	}
