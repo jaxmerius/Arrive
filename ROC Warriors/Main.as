@@ -131,7 +131,7 @@
 		}
 
 		private function mouseClick(e:MouseEvent):void {
-			if (blueCounter > 19) {
+			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0) {
 				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
 				blueCounter = 0;
 			}
@@ -204,13 +204,15 @@
 				}
 			}
 
-			if (blueCounter <= 20) {
-				blueCounter++;
+			if (blueCounter <= 20 ) {
+				
+					blueCounter++;
+				
 			}
 			
-			if (redCounter < 60) {
+			if (redCounter < 60)  {
 				redCounter++;
-			} else {
+			} else if(redUnits[0].unitType == 0  && blueUnits[0].unitType == 0){
 				if (Math.random() < 0.3334) {
 					createRedUnit(1);
 				} else if (Math.random() < 0.5) {

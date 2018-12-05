@@ -1,4 +1,4 @@
-package unit.states
+﻿package unit.states
 {
 	import unit.Unit;
 	public class PursueState implements IUnitState
@@ -27,10 +27,15 @@ package unit.states
 
 
 			u.speed = 3 * u.unitSpeed;
-			if (u.targetUnit.unitHealth <=0)
+
+			if (u.targetUnit.unitHealth <= 0)
 			{
+
+				u.targetUnit.setState(Unit.DIE);
+				u.targetUnit == u.foes[0];
 				u.setState(Unit.ADVANCE);
 			}
+
 			if(u.unitType == 2){
 				if((u.distanceToUnit) < u.farRadius){
 					u.setState(Unit.ATTACK);
@@ -48,8 +53,8 @@ package unit.states
 		{
 
 
-			u.velocity.x = Math.cos(u.radToUnit) * -1;
-			u.velocity.y = Math.sin(u.radToUnit) * -1;
+//			u.velocity.x = Math.cos(u.radToUnit) * -1;
+//			u.velocity.y = Math.sin(u.radToUnit) * -1;
 			
 			u.unitCounter = 0;
 

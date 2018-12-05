@@ -49,6 +49,7 @@
 						if (u.distanceToUnit < u.nearTo)
 						{
 							u.setState(Unit.ATTACK);
+							break;
 						}
 						if (u.distanceToUnit < u.farRadius)
 						{
@@ -62,6 +63,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 									}
 //									else if (Math.random()<(0.001 * u.baseJuxt))
 //									{
@@ -75,6 +77,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 									}
 								}
 								else if (foe.unitType == 3)
@@ -89,12 +92,14 @@
 									{
 
 										u.setState(Unit.RETREAT);
+										break;
 									}
 								}
 								else if (foe.unitType == 0)
 								{
 
 									u.setState(Unit.PURSUE);
+									break;
 								}
 							}
 							else if (u.unitType == 2)
@@ -106,6 +111,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 									}
 //									else if (Math.random()<(0.001 * u.baseJuxt))
 //									{
@@ -119,6 +125,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 									}
 								}
 								else if (foe.unitType == 1)
@@ -133,12 +140,14 @@
 									{
 
 										u.setState(Unit.RETREAT);
+										break;
 									}
 								}
 								else if (foe.unitType == 0)
 								{
 
 									u.setState(Unit.PURSUE);
+									break;
 								}
 							}
 							else if (u.unitType == 3)
@@ -150,6 +159,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 
 									}
 //									else if (Math.random()<(0.001 * u.baseJuxt))
@@ -164,6 +174,7 @@
 									{
 
 										u.setState(Unit.PURSUE);
+										break;
 									}
 								}
 								else if (foe.unitType == 2)
@@ -178,20 +189,25 @@
 									{
 
 										u.setState(Unit.RETREAT);
+									break;
 									}
 								}
 								else if (foe.unitType == 0)
 								{
 
 									u.setState(Unit.PURSUE);
+								break;
 								}
 							}
 							else if (u.unitType == 0)
 							{
 
 								u.setState(Unit.PURSUE);
+								break;
 							}
+							
 						}
+						
 					}
 				}
 			}

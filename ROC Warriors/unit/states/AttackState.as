@@ -46,6 +46,7 @@
 				{
 
 					u.targetUnit.setState(Unit.DIE);
+					u.targetUnit == u.foes[0];
 					u.setState(Unit.ADVANCE);
 				}
 				else

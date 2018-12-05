@@ -1,4 +1,4 @@
-package unit.states 
+﻿package unit.states 
 {
 	import unit.Unit;
 	
@@ -16,7 +16,11 @@ package unit.states
 				u.setState(Unit.DIE);
 			}
 			
-			if(u.targetUnit.unitHealth <= 0){
+			if (u.targetUnit.unitHealth <= 0)
+			{
+
+				u.targetUnit.setState(Unit.DIE);
+				u.targetUnit == u.foes[0];
 				u.setState(Unit.ADVANCE);
 			}
 			

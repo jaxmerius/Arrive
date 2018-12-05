@@ -49,7 +49,7 @@
 
 		public function enter(u:Unit):void
 		{
-			u.unitMC.gotoAndPlay(1);
+			u.unitMC.gotoAndPlay(3);
 			u.speed = 0;
 
 

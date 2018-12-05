@@ -1,4 +1,4 @@
-package  unit{
+﻿package  unit{
 	import unit.states.PursueState;
 	import unit.states.RetreatState;
 	import unit.states.AdvanceState;
@@ -246,32 +246,55 @@ package  unit{
 
 		public function update():void {
 			
-			//if(unitCounter == 0){
-			baseJuxt = distanceBetweenBases;
-				//trace(baseJuxt);
-
-			//}
+			if(foes[0].unitType == 0){
+				if(buds[0].unitType == 0){
 			
-			if(unitHealth <= 0){
-				setState(DIE);
+					if(targetUnit == null){
+						targetUnit == foes[0];
+						setState(ADVANCE);
+					}
+					
+					//if(unitCounter == 0){
+					baseJuxt = distanceBetweenBases;
+						//trace(baseJuxt);
+		
+					//}
+					
+					if(unitHealth <= 0){
+						setState(DIE);
+					}
+					
+					//u.setState(Unit.RETREAT);
+					unitCounter++; 
+					if (!currentState) return; 
+					
+					currentState.update(this);
+					x += velocity.x*speed;
+					y += velocity.y*speed;
+					
+					
+					try{
+						if (x + velocity.x > stage.stageWidth || x + velocity.x < 0) {
+							x = Math.max(0, Math.min(stage.stageWidth, x));
+							velocity.x *= -1;
+						}
+						if (y + velocity.y > stage.stageHeight || y + velocity.y < 0) {
+							y = Math.max(0, Math.min(stage.stageHeight, y));
+							velocity.y *= -1;
+						}
+					}catch(error:Error){
+						velocity.x = 0;
+						velocity.y = 0;
+					}
+					unitMC.rotation = RAD_DEG * Math.atan2(velocity.y, velocity.x);
+				}else{
+					setState(DIE);
+				}
+				
+			
 			}
 			
-			//u.setState(Unit.RETREAT);
-			unitCounter++; 
-			if (!currentState) return; 
 			
-			currentState.update(this);
-			x += velocity.x*speed;
-			y += velocity.y*speed;
-			if (x + velocity.x > stage.stageWidth || x + velocity.x < 0) {
-				x = Math.max(0, Math.min(stage.stageWidth, x));
-				velocity.x *= -1;
-			}
-			if (y + velocity.y > stage.stageHeight || y + velocity.y < 0) {
-				y = Math.max(0, Math.min(stage.stageHeight, y));
-				velocity.y *= -1;
-			}
-			unitMC.rotation = RAD_DEG * Math.atan2(velocity.y, velocity.x);
 		}
 		public function setState(newState:IUnitState):void {
 			if (currentState == newState) return;
@@ -282,6 +305,7 @@ package  unit{
 			currentState = newState;
 			currentState.enter(this);
 			unitCounter = 0;
+			return;
 		}
 		
 		public function get previousState():IUnitState { return lastState; }
