@@ -162,7 +162,7 @@
 
 		//Place Unit on the Field
 		private function mouseClick(e:MouseEvent):void {
-			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0) {
+			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0 && segments[0].getPin().y < stage.stageHeight - 30) {
 				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
 				blueCounter = 0;
 			}
