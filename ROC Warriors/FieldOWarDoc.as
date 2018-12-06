@@ -11,17 +11,17 @@
 		public function FieldOWarDoc() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			//createStartScreen();
-			
-			createGame();
+			createStartScreen();
 		}
 		
-		/*private function createStartScreen():void {
-			var startMenu:StartScreen = new StartScreen();
+		private function createStartScreen():void {
+			var background:Background = new Background();
+			var startScreen:StartScreen = new StartScreen();
 			
-			addChild(startMenu);
+			addChild(background);
+			addChild(startScreen);
 			
-			startMenu.startButton.addEventListener(MouseEvent.CLICK, startGameHandler);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 		}
 		
 		private function startGameHandler(evt:MouseEvent):void {
@@ -30,7 +30,7 @@
 			evt.currentTarget.removeEventListener(MouseEvent.CLICK, startGameHandler);
 			
 			createGame();
-		}*/
+		}
 		
 		private function createGame():void {
 			var game:Main = new Main();
