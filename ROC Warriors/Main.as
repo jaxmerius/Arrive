@@ -69,29 +69,7 @@
 			redTower.x = stage.stageWidth / 2;
 			redTower.y = stage.stageHeight * 0.12
 			
-			//Player Input Buttons
-			_arcButton.x = 110;
-			_arcButton.y = stage.stageHeight - 16;
-			_arcButton.width = 64;
-			_arcButton.height = 32;
-			addChild(_arcButton);
 			
-			_kniButton.x = 190;
-			_kniButton.y = stage.stageHeight - 16;
-			_kniButton.width = 64;
-			_kniButton.height = 32;
-			addChild(_kniButton);
-			
-			_giButton.x = 270;
-			_giButton.y = stage.stageHeight - 16;
-			_giButton.width = 64;
-			_giButton.height = 32;
-			addChild(_giButton);
-			
-			_giButton.addEventListener(MouseEvent.CLICK, giClick);
-            _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
-            _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
-
 			//Score placement
 			yourField = new TextField;
 			addChild(yourField);
@@ -125,6 +103,29 @@
 			cursor.y = segments[0].getPin().y;
 			
 			addChild(cursor);
+			
+			//Player Input Buttons
+			_arcButton.x = 110;
+			_arcButton.y = stage.stageHeight - 16;
+			_arcButton.width = 64;
+			_arcButton.height = 32;
+			addChild(_arcButton);
+			
+			_kniButton.x = 190;
+			_kniButton.y = stage.stageHeight - 16;
+			_kniButton.width = 64;
+			_kniButton.height = 32;
+			addChild(_kniButton);
+			
+			_giButton.x = 270;
+			_giButton.y = stage.stageHeight - 16;
+			_giButton.width = 64;
+			_giButton.height = 32;
+			addChild(_giButton);
+			
+			_giButton.addEventListener(MouseEvent.CLICK, giClick);
+            _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
+            _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
 
 			addEventListener(Event.ENTER_FRAME, update);
 
@@ -249,10 +250,8 @@
 				}
 			}
 
-			if (blueCounter <= 20 ) {
-				
-					blueCounter++;
-				
+			if (blueCounter <= 20 ) {				
+					blueCounter++;				
 			}
 			
 			if (redCounter < 60)  {
