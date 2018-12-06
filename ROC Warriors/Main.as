@@ -18,6 +18,9 @@
 		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
+		
+		public var lose:Boolean = false;
+		public var win:Boolean = false;
 
 		//stage assets
 		public var bg:MovieClip;
@@ -226,6 +229,13 @@
 
 
 		private function update(e:Event):void {
+			if (blueUnits[0].unitType == null) {
+				
+			} else {
+				lose = true;
+				trace(lose);
+			}
+			
 			var target: Point = reach(segments[0], mouseX, mouseY);
 			
 			for (var j:uint = 1; j < numSegments; j++) {
