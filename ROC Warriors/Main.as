@@ -14,6 +14,8 @@
 		//private var units:Vector.<Unit>;
 		private var blueUnits:Array;
 		private var redUnits:Array;
+		private var u:Unit;
+		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
 
@@ -85,6 +87,10 @@
 			_giButton.width = 64;
 			_giButton.height = 32;
 			addChild(_giButton);
+			
+			_giButton.addEventListener(MouseEvent.CLICK, giClick);
+            _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
+            _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
 
 			//Score placement
 			yourField = new TextField;
@@ -99,7 +105,7 @@
 			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
+			stage.align = StageAlign.TOP_LEFT;		
 			
 			//set up reverse kinematics for troop spawn
 			segments = new Array();
@@ -153,6 +159,7 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, heroSelect);
 		}
 
+		//Place Unit on the Field
 		private function mouseClick(e:MouseEvent):void {
 			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0) {
 				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
@@ -160,6 +167,20 @@
 			}
 		}
 		
+		//Choose unit via button click
+		private function giClick(e:MouseEvent){
+			heroSelected = 3;
+		}
+		
+		private function kniClick(e:MouseEvent){
+			heroSelected = 1;
+		}
+		
+		private function arcClick(e:MouseEvent){
+			heroSelected = 2;
+		}
+		
+		//Choose unit via Keyboard hot key
 		private function heroSelect(e:KeyboardEvent):void {
 			if (e.keyCode == Keyboard.NUMBER_1) {
 				heroSelected = 1;
@@ -170,8 +191,7 @@
 			}
 		}
 
-		var u:Unit;
-
+		//Foundation of Blue Units
 		private function createBlueUnit(oneToThree:Number, positionX:Number, positionY:Number):void {
 			u = new Unit();
 			u.setUnit(false, oneToThree);
@@ -185,6 +205,7 @@
 			u.y = positionY;
 		}
 
+		//Foundation of Red Units
 		private function createRedUnit(oneOfThree:Number):void {
 			u = new Unit();
 			u.setUnit(true, oneOfThree);
@@ -197,6 +218,7 @@
 			u.y = stage.stageHeight * 0.19;
 		}
 
+		//Set up score text
 		public function scoring():void {
 			yourField.text = "PlayerScore Score: " + yourScore;
 		}
