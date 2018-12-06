@@ -4,9 +4,13 @@
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.display.MovieClip;
+	import flash.events.*;
+	import flash.ui.Keyboard;
 	import Main;
 	
 	public class FieldOWarDoc extends MovieClip {
+		private var startScreen:StartScreen = new StartScreen();
+		private var background:Background = new Background();
 		
 		public function FieldOWarDoc() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -15,8 +19,13 @@
 		}
 		
 		private function createStartScreen():void {
-			var background:Background = new Background();
-			var startScreen:StartScreen = new StartScreen();
+			background.x = 0;
+			background.y = 0;
+			background.width = stage.stageWidth;
+			background.height = stage.stageHeight;
+			
+			startScreen.x = 0;
+			startScreen.y = 198;
 			
 			addChild(background);
 			addChild(startScreen);
@@ -24,8 +33,9 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 		}
 		
-		private function startGameHandler(evt:MouseEvent):void {
-			removeChild(evt.currentTarget.parent);
+		private function startGameHandler(evt:KeyboardEvent):void {
+			removeChild(background);
+			removeChild(startScreen);
 			
 			evt.currentTarget.removeEventListener(MouseEvent.CLICK, startGameHandler);
 			
