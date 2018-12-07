@@ -36,7 +36,7 @@
 		private var segments:Array;
 		private var numSegments:uint = 26;
 		
-		private var cursor:MovieClip;
+		public var cursor:MovieClip;
 		
 		private var heroSelected:Number = 1;
 		
@@ -100,6 +100,7 @@
 			segment.x = blueTower.x;
 			segment.y = blueTower.y;
 			
+			//adding cursor
 			cursor = new Cursor();
 			
 			cursor.x = segments[0].getPin().x;
@@ -299,6 +300,17 @@
 			for (var ii:int = 0; ii < redUnits.length; ii++) {
 				redUnits[ii].update();
 			}
+			if (heroSelected == 1) {
+				cursor.gotoAndStop(2);
+				
+			}
+			else if(heroSelected == 2) {
+				cursor.gotoAndStop(3);
+			}
+			else if(heroSelected == 3) {
+				cursor.gotoAndStop(4);
+			}
+			
 		}
 
 		private function reach(segment:Segment, xpos:Number, ypos:Number):Point {
