@@ -14,8 +14,13 @@
 		//private var units:Vector.<Unit>;
 		private var blueUnits:Array;
 		private var redUnits:Array;
+		private var u:Unit;
+		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
+		
+		public var lose:Boolean = false;
+		public var win:Boolean = false;
 
 		//stage assets
 		public var bg:MovieClip;
@@ -34,6 +39,10 @@
 		private var cursor:MovieClip;
 		
 		private var heroSelected:Number = 1;
+		
+		private var _arcButton:archerButton = new archerButton;
+		private var _giButton:giantButton = new giantButton;
+		private var _kniButton:knightButton = new knightButton;
 
 		public function Main():void {
 			if (stage) init();
@@ -62,7 +71,8 @@
 			addChild(redTower);
 			redTower.x = stage.stageWidth / 2;
 			redTower.y = stage.stageHeight * 0.12
-
+			
+			
 			//Score placement
 			yourField = new TextField;
 			addChild(yourField);
@@ -76,7 +86,7 @@
 			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
+			stage.align = StageAlign.TOP_LEFT;		
 			
 			//set up reverse kinematics for troop spawn
 			segments = new Array();
@@ -96,6 +106,29 @@
 			cursor.y = segments[0].getPin().y;
 			
 			addChild(cursor);
+			
+			//Player Input Buttons
+			_arcButton.x = 110;
+			_arcButton.y = stage.stageHeight - 16;
+			_arcButton.width = 64;
+			_arcButton.height = 32;
+			addChild(_arcButton);
+			
+			_kniButton.x = 190;
+			_kniButton.y = stage.stageHeight - 16;
+			_kniButton.width = 64;
+			_kniButton.height = 32;
+			addChild(_kniButton);
+			
+			_giButton.x = 270;
+			_giButton.y = stage.stageHeight - 16;
+			_giButton.width = 64;
+			_giButton.height = 32;
+			addChild(_giButton);
+			
+			_giButton.addEventListener(MouseEvent.CLICK, giClick);
+            _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
+            _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
 
 			addEventListener(Event.ENTER_FRAME, update);
 
@@ -130,13 +163,28 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, heroSelect);
 		}
 
+		//Place Unit on the Field
 		private function mouseClick(e:MouseEvent):void {
-			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0) {
+			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0 && segments[0].getPin().y < stage.stageHeight - 30) {
 				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
 				blueCounter = 0;
 			}
 		}
 		
+		//Choose unit via button click
+		private function giClick(e:MouseEvent){
+			heroSelected = 3;
+		}
+		
+		private function kniClick(e:MouseEvent){
+			heroSelected = 1;
+		}
+		
+		private function arcClick(e:MouseEvent){
+			heroSelected = 2;
+		}
+		
+		//Choose unit via Keyboard hot key
 		private function heroSelect(e:KeyboardEvent):void {
 			if (e.keyCode == Keyboard.NUMBER_1) {
 				heroSelected = 1;
@@ -147,8 +195,7 @@
 			}
 		}
 
-		var u:Unit;
-
+		//Foundation of Blue Units
 		private function createBlueUnit(oneToThree:Number, positionX:Number, positionY:Number):void {
 			u = new Unit();
 			u.setUnit(false, oneToThree);
@@ -162,6 +209,7 @@
 			u.y = positionY;
 		}
 
+		//Foundation of Red Units
 		private function createRedUnit(oneOfThree:Number):void {
 			u = new Unit();
 			u.setUnit(true, oneOfThree);
@@ -174,12 +222,33 @@
 			u.y = stage.stageHeight * 0.19;
 		}
 
+		//Set up score text
 		public function scoring():void {
 			yourField.text = "PlayerScore Score: " + yourScore;
 		}
 
 
 		private function update(e:Event):void {
+//			
+			if(blueUnits.length > 0){
+				if (blueUnits[0].deadDragon == true) {
+					lose = true;
+					trace("lose 1");
+				}else if(blueUnits[0].winner == true){
+					win = true;
+					trace("win");
+				}
+			}else {
+				lose = true;
+				trace("lose 2");
+			}
+				
+//				
+//			} else {
+//				lose = true;
+//				trace(lose);
+//			}
+			
 			var target: Point = reach(segments[0], mouseX, mouseY);
 			
 			for (var j:uint = 1; j < numSegments; j++) {
@@ -204,24 +273,24 @@
 				}
 			}
 
-			if (blueCounter <= 20 ) {
-				
-					blueCounter++;
-				
+			if (blueCounter <= 20 ) {				
+					blueCounter++;				
 			}
 			
 			if (redCounter < 60)  {
 				redCounter++;
-			} else if(redUnits[0].unitType == 0  && blueUnits[0].unitType == 0){
-				if (Math.random() < 0.3334) {
-					createRedUnit(1);
-				} else if (Math.random() < 0.5) {
-					createRedUnit(2);
-				} else {
-					createRedUnit(3);
+			} else if(redUnits.length > 0 && blueUnits.length > 0){
+				if(redUnits[0].unitType == 0  && blueUnits[0].unitType == 0){
+					if (Math.random() < 0.3334) {
+						createRedUnit(1);
+					} else if (Math.random() < 0.5) {
+						createRedUnit(2);
+					} else {
+						createRedUnit(3);
+					}
+					
+					redCounter = 30;
 				}
-				
-				redCounter = 30;
 			}
 
 			for (var i:int = 0; i < blueUnits.length; i++) {

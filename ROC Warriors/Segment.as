@@ -23,7 +23,7 @@
 		public function init():void {
 			
 			// draw the segment itself
-			graphics.lineStyle(0, 0, 0);
+			graphics.lineStyle(0);
 			graphics.beginFill(color, 0);
 			graphics.drawRoundRect(-segmentHeight / 2, 
 								   -segmentHeight / 2,

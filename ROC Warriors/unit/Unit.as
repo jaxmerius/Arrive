@@ -56,7 +56,9 @@
 		public var unitCounter:int = 10; 
 		//Counts updates. Timer.
 		
-		public var beingAttacked:Boolean = false
+		public var beingAttacked:Boolean = false;
+		public var deadDragon:Boolean = false;
+		public var winner:Boolean = false;
 		
 		public var isRed:Boolean = true;
 		//denotes red team.
@@ -243,11 +245,29 @@
 			}
 			parent.removeChild(this);
 		}
-
 		public function update():void {
+			if(foes.length > 0){
+				if (foes[0].deadDragon == false){
+					if(buds.length > 0){
+						if (foes[0].deadDragon == false){
+							
+							
+							firstUpdate();
+							
+						}else{
+							setState(DIE);
+						}
+					}else{
+						setState(DIE);
+					}
+				}
+			}
 			
-			if(foes[0].unitType == 0){
-				if(buds[0].unitType == 0){
+		}
+		public function firstUpdate():void {
+			
+//			if(foes[0].unitType == 0){
+//				if(buds[0].unitType == 0){
 			
 					if(targetUnit == null){
 						targetUnit == foes[0];
@@ -287,12 +307,12 @@
 						velocity.y = 0;
 					}
 					unitMC.rotation = RAD_DEG * Math.atan2(velocity.y, velocity.x);
-				}else{
-					setState(DIE);
-				}
+//				}else{
+//					setState(DIE);
+//				}
 				
 			
-			}
+//			}
 			
 			
 		}
