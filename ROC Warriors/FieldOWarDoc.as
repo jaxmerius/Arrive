@@ -11,6 +11,7 @@
 	public class FieldOWarDoc extends MovieClip {
 		private var startScreen:StartScreen = new StartScreen();
 		private var background:Background = new Background();
+		private var title:TitleScreenText = new TitleScreenText();
 		
 		public function FieldOWarDoc() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -24,11 +25,17 @@
 			background.width = stage.stageWidth;
 			background.height = stage.stageHeight;
 			
+			title.x = 0;
+			title.y = 200;
+			title.width = stage.stageWidth;
+			title.height = stage.stageHeight;
+			
 			startScreen.x = 0;
 			startScreen.y = 198;
 			
 			addChild(background);
 			addChild(startScreen);
+			addChild(title);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 		}
