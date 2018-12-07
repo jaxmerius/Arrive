@@ -1,4 +1,4 @@
-package unit.states 
+﻿package unit.states 
 {
 	import unit.Unit;
 	import Main;
@@ -17,6 +17,14 @@ package unit.states
 			if(u.alpha > 0){
 			u.alpha -= alphaSub
 			}else{
+				if(u.unitType == 0){
+					for each (var bud:Unit in u.buds){
+						bud.deadDragon = true; 
+					}
+					for each (var foe:Unit in u.foes){
+						foe.winner = true; 
+					}
+				}
 				u.Purge();
 			}
 //			if (alphaSub == alphaSub1){

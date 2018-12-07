@@ -229,12 +229,25 @@
 
 
 		private function update(e:Event):void {
-			if (blueUnits[0].unitType == null) {
-				
-			} else {
+//			
+			if(blueUnits.length > 0){
+				if (blueUnits[0].deadDragon == true) {
+					lose = true;
+					trace("lose 1");
+				}else if(blueUnits[0].winner == true){
+					win = true;
+					trace("win");
+				}
+			}else {
 				lose = true;
-				trace(lose);
+				trace("lose 2");
 			}
+				
+//				
+//			} else {
+//				lose = true;
+//				trace(lose);
+//			}
 			
 			var target: Point = reach(segments[0], mouseX, mouseY);
 			
@@ -266,16 +279,18 @@
 			
 			if (redCounter < 60)  {
 				redCounter++;
-			} else if(redUnits[0].unitType == 0  && blueUnits[0].unitType == 0){
-				if (Math.random() < 0.3334) {
-					createRedUnit(1);
-				} else if (Math.random() < 0.5) {
-					createRedUnit(2);
-				} else {
-					createRedUnit(3);
+			} else if(redUnits.length > 0 && blueUnits.length > 0){
+				if(redUnits[0].unitType == 0  && blueUnits[0].unitType == 0){
+					if (Math.random() < 0.3334) {
+						createRedUnit(1);
+					} else if (Math.random() < 0.5) {
+						createRedUnit(2);
+					} else {
+						createRedUnit(3);
+					}
+					
+					redCounter = 30;
 				}
-				
-				redCounter = 30;
 			}
 
 			for (var i:int = 0; i < blueUnits.length; i++) {
