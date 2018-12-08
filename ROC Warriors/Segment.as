@@ -23,19 +23,19 @@
 		public function init():void {
 			
 			// draw the segment itself
-			graphics.lineStyle(0);
-			graphics.beginFill(color, 0);
-			graphics.drawRoundRect(-segmentHeight / 2, 
-								   -segmentHeight / 2,
-								   segmentWidth + segmentHeight,
-								   segmentHeight,
-								   segmentHeight,
-								   segmentHeight);
-			graphics.endFill();
-			
-			// draw the two "pins"
-			graphics.drawCircle(0, 0, 2);
-			graphics.drawCircle(segmentWidth, 0, 2);
+//			graphics.lineStyle(0);
+//			graphics.beginFill(color, 0);
+//			graphics.drawRoundRect(-segmentHeight / 2, 
+//								   -segmentHeight / 2,
+//								   segmentWidth + segmentHeight,
+//								   segmentHeight,
+//								   segmentHeight,
+//								   segmentHeight);
+//			graphics.endFill();
+//			
+//			// draw the two "pins"
+//			graphics.drawCircle(0, 0, 2);
+//			graphics.drawCircle(segmentWidth, 0, 2);
 		}
 		
 		public function getPin():Point {
