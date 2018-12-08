@@ -18,6 +18,7 @@
 		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
+		public var alphaCounter:Number = 10
 		
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
@@ -242,6 +243,12 @@
 			}else {
 				lose = true;
 				trace("lose 2");
+			}
+			
+			if(win == true || lose == true){
+				if(alphaCounter > 0){
+					
+				}
 			}
 				
 //				

@@ -6,7 +6,7 @@
 	public class DieState implements IUnitState
 	{
 		
-		public var alphaSub1:Number = .02;
+		public var alphaSub1:Number = .01;
 		//public var alphaSub2:Number = .18;
 		public var alphaSub:Number = alphaSub1;
 		

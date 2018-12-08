@@ -1,12 +1,14 @@
 ﻿package unit.states
 {
 	import unit.Unit;
+	//import unit.LifeBar;
 	public class AttackState implements IUnitState
 	{
 		private var attackCounter:Number = 2;
 		private var attackDamage:Number = 1;
 		public function update(u:Unit):void
 		{
+			u.lifeBarAlpha = 1;
 			u.faceUnit(1);
 
 			if (u.unitCounter == attackCounter)
@@ -61,6 +63,8 @@
 
 		public function enter(u:Unit):void
 		{
+			
+			u.lifeBarAlpha = 1;
 			u.unitMC.gotoAndPlay(18);
 			u.speed = 0;
 			u.unitCounter = 0;
@@ -73,6 +77,7 @@
 			{
 				u.setState(Unit.ORIENT);
 			}
+
 //			u.targetUnit.attacker = u;
 //			u.targetUnit.beingAttacked = true;
 
