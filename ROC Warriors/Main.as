@@ -19,7 +19,7 @@
 		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
-		public var alphaCounter:Number = 150;
+		public var alphaCounter:Number = 10
 		
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
@@ -93,18 +93,18 @@
 			//Game Over GFX placement
 			_overWhite.x = -30;
 			_overWhite.y = -20;
-			_winGfx.x = 0;
-			_winGfx.y = 260;
-			_loseGfx.x = 0;
-			_loseGfx.y = 260;
-			_overGray.x = -60;
-			_overGray.y = -20;
+			_winGfx.x = -64;
+			_winGfx.y = 160;
+			_loseGfx.x = -74;
+			_loseGfx.y = 160;
+			_overGray.x = 40;
+			_overGray.y = -28;
 
 			//Unit Array Setup
 			redUnits = new Array();
 			blueUnits = new Array();
 			
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			removeEventListener(Event.ADDED_TO_STAGE, init);1
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;		
 			
@@ -252,32 +252,36 @@
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
 					trace("lose 1");					
+					
 				}else if(blueUnits[0].winner == true){
 					win = true;
-					trace("win");									}
+					trace("win");					
+				}
 			}else {
 				lose = true;
 				trace("lose 2");				
 			}
 			
 			if(win == true || lose == true){
-				if(alphaCounter > 0){
-					alphaCounter --;
-				}else if(win == true){
-					addChild(_overWhite);
-					_overWhite.gotoAndPlay(3);	
-					addChild(_overGray);
-					_overGray.gotoAndPlay(3);
-					addChild(_winGfx);
-					_winGfx.gotoAndPlay(3);					
-				}else if(lose == true){
-					addChild(_overWhite);
-					_overWhite.gotoAndPlay(3);	
-					addChild(_overGray);
-					_overGray.gotoAndPlay(3);
-					addChild(_loseGfx);
-					_loseGfx.gotoAndPlay(3);
-				}
+				alphaCounter = alphaCounter - 1;
+			}
+			
+			if(win == true && alphaCounter == 0){
+				addChild(_overWhite);
+				_overWhite.gotoAndPlay(3);	
+				addChild(_overGray);
+				_overGray.gotoAndPlay(3);
+				addChild(_winGfx);
+				_winGfx.gotoAndPlay(3);
+			}
+			
+			if(lose == true && alphaCounter == 0){
+				addChild(_overWhite);
+				_overWhite.gotoAndPlay(3);	
+				addChild(_overGray);
+				_overGray.gotoAndPlay(3);
+				addChild(_loseGfx);
+				_loseGfx.gotoAndPlay(3);
 			}
 				
 //				

@@ -311,11 +311,8 @@
 //			if(foes[0].unitType == 0){
 //				if(buds[0].unitType == 0){
 			l.unitLife = unitHealth / unitMAXHealth;
-			
-			if (unitHealth <= 0){
-				l.unitLife = 0;
-			}
 			l.alpha = lifeBarAlpha;
+
 			l.update();
 			if(targetUnit == null){
 				targetUnit == foes[0];
