@@ -9,6 +9,7 @@
 	import flash.display.MovieClip;
 	import flash.text.TextField;
 	import flash.geom.Point;
+	import flash.ui.GameInput;
 
 	public class Main extends Sprite {
 		//private var units:Vector.<Unit>;
@@ -41,10 +42,16 @@
 		
 		private var heroSelected:Number = 1;
 		
-		//Button setup
+		//Button objects
 		private var _arcButton:archerButton = new archerButton;
 		private var _giButton:giantButton = new giantButton;
 		private var _kniButton:knightButton = new knightButton;
+		
+		//Game Over Objects
+		private var _winGfx:youWin = new youWin;
+		private var _loseGfx:youLose = new youLose;
+		private var _overWhite:gameOverWhite = new gameOverWhite;
+		private var _overGray:gameOverGray = new gameOverGray;
 
 		public function Main():void {
 			if (stage) init();
@@ -82,6 +89,16 @@
 			yourField.text = "PlayerScore Score: 0";
 			yourField.x = 20;
 			yourField.y = 5;
+			
+			//Game Over GFX placement
+			_overWhite.x = -30;
+			_overWhite.y = -20;
+			_winGfx.x = 0;
+			_winGfx.y = 260;
+			_loseGfx.x = 0;
+			_loseGfx.y = 260;
+			_overGray.x = -60;
+			_overGray.y = -20;
 
 			//Unit Array Setup
 			redUnits = new Array();
@@ -234,14 +251,32 @@
 			if(blueUnits.length > 0){
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
-					trace("lose 1");
+					trace("lose 1");					
+					addChild(_overWhite);
+					_overWhite.gotoAndPlay(3);	
+					addChild(_overGray);
+					_overGray.gotoAndPlay(3);	
+					addChild(_loseGfx);
+					_loseGfx.gotoAndPlay(3);
 				}else if(blueUnits[0].winner == true){
 					win = true;
-					trace("win");
+					trace("win");					
+					addChild(_overWhite);
+					_overWhite.gotoAndPlay(3);	
+					addChild(_overGray);
+					_overGray.gotoAndPlay(3);
+					addChild(_winGfx);
+					_winGfx.gotoAndPlay(3);
 				}
 			}else {
 				lose = true;
-				trace("lose 2");
+				trace("lose 2");				
+				addChild(_overWhite);
+				_overWhite.gotoAndPlay(3);	
+				addChild(_overGray);
+				_overGray.gotoAndPlay(3);
+				addChild(_loseGfx);
+				_loseGfx.gotoAndPlay(3);
 			}
 			
 			if(win == true || lose == true){
