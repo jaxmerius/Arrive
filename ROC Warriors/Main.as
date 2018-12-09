@@ -41,6 +41,7 @@
 		
 		private var heroSelected:Number = 1;
 		
+		//Button setup
 		private var _arcButton:archerButton = new archerButton;
 		private var _giButton:giantButton = new giantButton;
 		private var _kniButton:knightButton = new knightButton;
@@ -82,6 +83,7 @@
 			yourField.x = 20;
 			yourField.y = 5;
 
+			//Unit Array Setup
 			redUnits = new Array();
 			blueUnits = new Array();
 			
@@ -102,11 +104,9 @@
 			segment.y = blueTower.y;
 			
 			//adding cursor
-			cursor = new Cursor();
-			
+			cursor = new Cursor();			
 			cursor.x = segments[0].getPin().x;
-			cursor.y = segments[0].getPin().y;
-			
+			cursor.y = segments[0].getPin().y;			
 			addChild(cursor);
 			
 			//Player Input Buttons
@@ -135,8 +135,7 @@
 			addEventListener(Event.ENTER_FRAME, update);
 
 			for (var i:int = 0; i < 1; i++) {
-				var ru:Unit = new Unit();
-				//ru.unitMC = new Unit();
+				var ru:Unit = new Unit();				
 
 				ru.foes = blueUnits;
 				ru.buds = redUnits;
@@ -175,7 +174,7 @@
 		
 		//Choose unit via button click
 		private function giClick(e:MouseEvent){
-			heroSelected = 3;
+			heroSelected = 3;			
 		}
 		
 		private function kniClick(e:MouseEvent){
