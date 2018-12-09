@@ -22,12 +22,15 @@
 			backBarMC = new BackLifeBar();
 			backBarMC.width = 52;
 			backBarMC.height = 10;
+			backBarMC.alpha
 			if (redTeam == true)
 			{
 				lifeMC = new RedLifeBar();
 				lifeMC.width = 50;
 				lifeMC.height = 8;
 				lifeMC.x = backBarMC.x + 1;
+				lifeMC.y = backBarMC.y;
+				lifeMC.alpha
 			}
 			else
 			{
@@ -35,6 +38,8 @@
 				lifeMC.width = 50;
 				lifeMC.height = 8;
 				lifeMC.x = backBarMC.x +1;
+				lifeMC.y = backBarMC.y;
+				lifeMC.alpha
 			}
 			addChild(backBarMC);
 			addChild(lifeMC);
