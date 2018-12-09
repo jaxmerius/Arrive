@@ -19,7 +19,7 @@
 		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
-		public var alphaCounter:Number = 10
+		public var alphaCounter:Number = 6;
 		
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
@@ -95,7 +95,7 @@
 			_overWhite.y = -20;
 			_winGfx.x = -64;
 			_winGfx.y = 160;
-			_loseGfx.x = -74;
+			_loseGfx.x = -70;
 			_loseGfx.y = 160;
 			_overGray.x = 40;
 			_overGray.y = -28;
@@ -248,6 +248,7 @@
 
 		private function update(e:Event):void {
 //			
+			//Game Over Logic
 			if(blueUnits.length > 0){
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
@@ -266,6 +267,7 @@
 				alphaCounter = alphaCounter - 1;
 			}
 			
+			//Win GFX Go!
 			if(win == true && alphaCounter == 0){
 				addChild(_overWhite);
 				_overWhite.gotoAndPlay(3);	
@@ -275,6 +277,7 @@
 				_winGfx.gotoAndPlay(3);
 			}
 			
+			//Lose GFX Go!
 			if(lose == true && alphaCounter == 0){
 				addChild(_overWhite);
 				_overWhite.gotoAndPlay(3);	
