@@ -245,7 +245,6 @@
 			yourField.text = "PlayerScore Score: " + yourScore;
 		}
 
-
 		private function update(e:Event):void {
 //			
 			//Game Over Logic
@@ -258,7 +257,7 @@
 					win = true;
 					trace("win");					
 				}
-			}else {
+			}else{
 				lose = true;
 				trace("lose 2");				
 			}
