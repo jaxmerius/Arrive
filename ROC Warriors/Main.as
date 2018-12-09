@@ -19,7 +19,7 @@
 		
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
-		public var alphaCounter:Number = 10
+		public var alphaCounter:Number = 150;
 		
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
@@ -252,36 +252,31 @@
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
 					trace("lose 1");					
-					addChild(_overWhite);
-					_overWhite.gotoAndPlay(3);	
-					addChild(_overGray);
-					_overGray.gotoAndPlay(3);	
-					addChild(_loseGfx);
-					_loseGfx.gotoAndPlay(3);
 				}else if(blueUnits[0].winner == true){
 					win = true;
-					trace("win");					
+					trace("win");									}
+			}else {
+				lose = true;
+				trace("lose 2");				
+			}
+			
+			if(win == true || lose == true){
+				if(alphaCounter > 0){
+					alphaCounter --;
+				}else if(win == true){
 					addChild(_overWhite);
 					_overWhite.gotoAndPlay(3);	
 					addChild(_overGray);
 					_overGray.gotoAndPlay(3);
 					addChild(_winGfx);
-					_winGfx.gotoAndPlay(3);
-				}
-			}else {
-				lose = true;
-				trace("lose 2");				
-				addChild(_overWhite);
-				_overWhite.gotoAndPlay(3);	
-				addChild(_overGray);
-				_overGray.gotoAndPlay(3);
-				addChild(_loseGfx);
-				_loseGfx.gotoAndPlay(3);
-			}
-			
-			if(win == true || lose == true){
-				if(alphaCounter > 0){
-					
+					_winGfx.gotoAndPlay(3);					
+				}else if(lose == true){
+					addChild(_overWhite);
+					_overWhite.gotoAndPlay(3);	
+					addChild(_overGray);
+					_overGray.gotoAndPlay(3);
+					addChild(_loseGfx);
+					_loseGfx.gotoAndPlay(3);
 				}
 			}
 				
