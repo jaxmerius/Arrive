@@ -64,6 +64,18 @@
 
 		private function init(e:Event = null): void {
 			//set up stage
+			redCounter = 0;
+			blueCounter = 0;
+			alphaCounter = 10;
+			//Game over bools
+			lose = false;
+			win = false;
+			gameOver = false;
+			yourScore = 0;
+			//numSegments= 26;
+			heroSelected = 1;
+			
+			
 			
 			//background
 			bg = new Background();
@@ -255,6 +267,7 @@
 
 		private function update(e:Event):void {
 //			
+trace(this.numChildren);
 			//Game Over Logic
 			if(blueUnits.length > 0 && gameOver == false){
 				if (blueUnits[0].deadDragon == true) {
@@ -273,8 +286,10 @@
 				trace("lose 2");
 			}
 			
-			if(win == true || lose == true){
+			if(gameOver == true){
 				alphaCounter = alphaCounter - 1;
+				redCounter = 0;
+				blueCounter = 0;
 			}
 			
 			//Win GFX Go!
@@ -393,7 +408,13 @@
 		
 		//Restart Game Function
 		private function restartGame(evt: MouseEvent): void {
-						
+			while (blueUnits.length > 0){
+				blueUnits[0].Purge();
+			}
+			while (redUnits.length > 0){
+				redUnits[0].Purge();
+			}
+			
 			var i: int = this.numChildren;
 			while (i--) {
 				removeChildAt(i);
@@ -405,11 +426,13 @@
 			//win = false;
 			//gameOver = false;
 			//alphaCounter = 10;
-			var restart: Main = new Main();
-			var newUnit: Unit = new Unit();
 			
-			addChild(restart);	
-			addChild(newUnit);			
+			init();
+			//var restart: Main = new Main();
+			//var newUnit: Unit = new Unit();
+			
+			//addChild(restart);	
+			//addChild(newUnit);			
 		}
 
 	}
