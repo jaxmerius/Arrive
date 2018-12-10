@@ -11,18 +11,21 @@
 	import flash.geom.Point;
 	import flash.ui.GameInput;
 
-	public class Main extends Sprite {
+	public class Main extends MovieClip {
 		//private var units:Vector.<Unit>;
 		private var blueUnits:Array;
 		private var redUnits:Array;
 		private var u:Unit;
 		
+		//Counters
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
 		public var alphaCounter:Number = 6;
 		
+		//Game over bools
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
+		public var gameOver:Boolean = false;
 
 		//stage assets
 		public var bg:MovieClip;
@@ -52,6 +55,7 @@
 		private var _loseGfx:youLose = new youLose;
 		private var _overWhite:gameOverWhite = new gameOverWhite;
 		private var _overGray:gameOverGray = new gameOverGray;
+		private var _retry:retryButton = new retryButton;
 
 		public function Main():void {
 			if (stage) init();
@@ -145,9 +149,13 @@
 			_giButton.height = 32;
 			addChild(_giButton);
 			
+			_retry.x = 190;
+			_retry.y = stage.stageHeight - 300;
+			
 			_giButton.addEventListener(MouseEvent.CLICK, giClick);
             _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
             _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
+			_retry.addEventListener(MouseEvent.CLICK, restartGame);
 
 			addEventListener(Event.ENTER_FRAME, update);
 
@@ -248,18 +256,21 @@
 		private function update(e:Event):void {
 //			
 			//Game Over Logic
-			if(blueUnits.length > 0){
+			if(blueUnits.length > 0 && gameOver == false){
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
-					trace("lose 1");					
+					gameOver = true;
+					trace("lose 1");	
 					
-				}else if(blueUnits[0].winner == true){
+				}else if(blueUnits[0].winner == true && gameOver == false){
 					win = true;
-					trace("win");					
+					gameOver = true;
+					trace("win");
 				}
-			}else{
+			}else if (gameOver == false){
 				lose = true;
-				trace("lose 2");				
+				gameOver = true;
+				trace("lose 2");
 			}
 			
 			if(win == true || lose == true){
@@ -285,6 +296,11 @@
 				addChild(_loseGfx);
 				_loseGfx.gotoAndPlay(3);
 			}
+			
+			//Retry Button Go!
+			if(win == true || lose == true && alphaCounter == -22){
+				addChild(_retry);				
+			}
 				
 //				
 //			} else {
@@ -292,6 +308,7 @@
 //				trace(lose);
 //			}
 			
+			//Chain Create!!
 			var target: Point = reach(segments[0], mouseX, mouseY);
 			
 			for (var j:uint = 1; j < numSegments; j++) {
@@ -355,6 +372,7 @@
 			
 		}
 
+		//Segment Stuff
 		private function reach(segment:Segment, xpos:Number, ypos:Number):Point {
 			var dx:Number = xpos - segment.x;
 			var dy:Number = ypos - segment.y;
@@ -371,6 +389,26 @@
 		private function position(segmentA:Segment, segmentB:Segment):void {
 			segmentA.x = segmentB.getPin().x;
 			segmentA.y = segmentB.getPin().y;
+		}
+		
+		//Restart Game Function
+		private function restartGame(evt: MouseEvent): void {
+						
+			var i: int = this.numChildren;
+			while (i--) {
+				removeChildAt(i);
+			}
+
+			//redCounter = 0;
+			//blueCounter = 0;
+			//lose = false;
+			//win = false;
+			//gameOver = false;
+			//alphaCounter = 16;
+			var restart: Main = new Main();
+			//var newUnit: Unit = new Unit();
+			//addChild(newUnit);
+			addChild(restart);			
 		}
 
 	}
