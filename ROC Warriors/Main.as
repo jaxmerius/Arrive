@@ -20,7 +20,7 @@
 		//Counters
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
-		public var alphaCounter:Number = 6;
+		public var alphaCounter:Number = 10;
 		
 		//Game over bools
 		public var lose:Boolean = false;
@@ -278,7 +278,7 @@
 			}
 			
 			//Win GFX Go!
-			if(win == true && alphaCounter == 0){
+			if(win == true && alphaCounter == 4){
 				addChild(_overWhite);
 				_overWhite.gotoAndPlay(3);	
 				addChild(_overGray);
@@ -288,7 +288,7 @@
 			}
 			
 			//Lose GFX Go!
-			if(lose == true && alphaCounter == 0){
+			if(lose == true && alphaCounter == 4){
 				addChild(_overWhite);
 				_overWhite.gotoAndPlay(3);	
 				addChild(_overGray);
@@ -298,7 +298,7 @@
 			}
 			
 			//Retry Button Go!
-			if(win == true || lose == true && alphaCounter == -22){
+			if(win == true || lose == true && alphaCounter == 0){
 				addChild(_retry);				
 			}
 				
@@ -404,11 +404,12 @@
 			//lose = false;
 			//win = false;
 			//gameOver = false;
-			//alphaCounter = 16;
+			//alphaCounter = 10;
 			var restart: Main = new Main();
-			//var newUnit: Unit = new Unit();
-			//addChild(newUnit);
-			addChild(restart);			
+			var newUnit: Unit = new Unit();
+			
+			addChild(restart);	
+			addChild(newUnit);			
 		}
 
 	}
