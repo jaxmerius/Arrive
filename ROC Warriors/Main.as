@@ -63,19 +63,20 @@
 		}
 
 		private function init(e:Event = null): void {
+			
 			//set up stage
 			redCounter = 0;
 			blueCounter = 0;
 			alphaCounter = 10;
+			
 			//Game over bools
 			lose = false;
 			win = false;
 			gameOver = false;
-			yourScore = 0;
-			//numSegments= 26;
-			heroSelected = 1;
+			yourScore = 0;		
 			
-			
+			//Initial Hero
+			heroSelected = 1;	
 			
 			//background
 			bg = new Background();
@@ -95,8 +96,7 @@
 			redTower = new RTower();
 			addChild(redTower);
 			redTower.x = stage.stageWidth / 2;
-			redTower.y = stage.stageHeight * 0.12
-			
+			redTower.y = stage.stageHeight * 0.12			
 			
 			//Score placement
 			yourField = new TextField;
@@ -120,7 +120,8 @@
 			redUnits = new Array();
 			blueUnits = new Array();
 			
-			removeEventListener(Event.ADDED_TO_STAGE, init);1
+			//Stage Stuff
+			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;		
 			
@@ -171,6 +172,7 @@
 
 			addEventListener(Event.ENTER_FRAME, update);
 
+			//Set up Foes!
 			for (var i:int = 0; i < 1; i++) {
 				var ru:Unit = new Unit();				
 
@@ -184,6 +186,7 @@
 				ru.y = stage.stageHeight * 0.09
 			}
 
+			//Set up Allies!
 			for (var ii:int = 0; ii < 1; ii++) {
 				var bu:Unit = new Unit();
 
@@ -212,12 +215,10 @@
 		//Choose unit via button click
 		private function giClick(e:MouseEvent){
 			heroSelected = 3;			
-		}
-		
+		}		
 		private function kniClick(e:MouseEvent){
 			heroSelected = 1;
-		}
-		
+		}		
 		private function arcClick(e:MouseEvent){
 			heroSelected = 2;
 		}
@@ -266,8 +267,7 @@
 		}
 
 		private function update(e:Event):void {
-//			
-trace(this.numChildren);
+
 			//Game Over Logic
 			if(blueUnits.length > 0 && gameOver == false){
 				if (blueUnits[0].deadDragon == true) {
@@ -315,13 +315,7 @@ trace(this.numChildren);
 			//Retry Button Go!
 			if(win == true || lose == true && alphaCounter == 0){
 				addChild(_retry);				
-			}
-				
-//				
-//			} else {
-//				lose = true;
-//				trace(lose);
-//			}
+			}			
 			
 			//Chain Create!!
 			var target: Point = reach(segments[0], mouseX, mouseY);
@@ -340,6 +334,7 @@ trace(this.numChildren);
 			cursor.x = segments[0].getPin().x;
 			cursor.y = segments[0].getPin().y;
 
+			//Red Units!
 			for each(var red:Unit in redUnits) {
 				if (red.myScore > 0) {
 					yourScore += red.myScore;
@@ -368,15 +363,17 @@ trace(this.numChildren);
 				}
 			}
 
+			//Unit Update Function
 			for (var i:int = 0; i < blueUnits.length; i++) {
 				blueUnits[i].update();
 			}
 			for (var ii:int = 0; ii < redUnits.length; ii++) {
 				redUnits[ii].update();
 			}
+			
+			//Custom Cursor
 			if (heroSelected == 1) {
-				cursor.gotoAndStop(2);
-				
+				cursor.gotoAndStop(2);				
 			}
 			else if(heroSelected == 2) {
 				cursor.gotoAndStop(3);
@@ -406,8 +403,9 @@ trace(this.numChildren);
 			segmentA.y = segmentB.getPin().y;
 		}
 		
-		//Restart Game Function
+		//Restart Game Functionality
 		private function restartGame(evt: MouseEvent): void {
+			
 			while (blueUnits.length > 0){
 				blueUnits[0].Purge();
 			}
@@ -418,21 +416,8 @@ trace(this.numChildren);
 			var i: int = this.numChildren;
 			while (i--) {
 				removeChildAt(i);
-			}
-
-			//redCounter = 0;
-			//blueCounter = 0;
-			//lose = false;
-			//win = false;
-			//gameOver = false;
-			//alphaCounter = 10;
-			
-			init();
-			//var restart: Main = new Main();
-			//var newUnit: Unit = new Unit();
-			
-			//addChild(restart);	
-			//addChild(newUnit);			
+			}			
+			init();					
 		}
 
 	}
