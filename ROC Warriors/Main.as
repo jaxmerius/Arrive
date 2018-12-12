@@ -9,18 +9,23 @@
 	import flash.display.MovieClip;
 	import flash.text.TextField;
 	import flash.geom.Point;
+	import flash.ui.GameInput;
 
-	public class Main extends Sprite {
+	public class Main extends MovieClip {
 		//private var units:Vector.<Unit>;
 		private var blueUnits:Array;
 		private var redUnits:Array;
 		private var u:Unit;
 		
+		//Counters
 		public var redCounter:Number = 0;
 		public var blueCounter:Number = 0;
+		public var alphaCounter:Number = 10;
 		
+		//Game over bools
 		public var lose:Boolean = false;
 		public var win:Boolean = false;
+		public var gameOver:Boolean = false;
 
 		//stage assets
 		public var bg:MovieClip;
@@ -40,9 +45,17 @@
 		
 		private var heroSelected:Number = 1;
 		
+		//Button objects
 		private var _arcButton:archerButton = new archerButton;
 		private var _giButton:giantButton = new giantButton;
 		private var _kniButton:knightButton = new knightButton;
+		
+		//Game Over Objects
+		private var _winGfx:youWin = new youWin;
+		private var _loseGfx:youLose = new youLose;
+		private var _overWhite:gameOverWhite = new gameOverWhite;
+		private var _overGray:gameOverGray = new gameOverGray;
+		private var _retry:retryButton = new retryButton;
 
 		public function Main():void {
 			if (stage) init();
@@ -50,7 +63,20 @@
 		}
 
 		private function init(e:Event = null): void {
+			
 			//set up stage
+			redCounter = 0;
+			blueCounter = 0;
+			alphaCounter = 10;
+			
+			//Game over bools
+			lose = false;
+			win = false;
+			gameOver = false;
+			yourScore = 0;		
+			
+			//Initial Hero
+			heroSelected = 1;	
 			
 			//background
 			bg = new Background();
@@ -70,8 +96,7 @@
 			redTower = new RTower();
 			addChild(redTower);
 			redTower.x = stage.stageWidth / 2;
-			redTower.y = stage.stageHeight * 0.12
-			
+			redTower.y = stage.stageHeight * 0.12			
 			
 			//Score placement
 			yourField = new TextField;
@@ -80,10 +105,22 @@
 			yourField.text = "PlayerScore Score: 0";
 			yourField.x = 20;
 			yourField.y = 5;
+			
+			//Game Over GFX placement
+			_overWhite.x = -30;
+			_overWhite.y = -20;
+			_winGfx.x = -64;
+			_winGfx.y = 160;
+			_loseGfx.x = -70;
+			_loseGfx.y = 160;
+			_overGray.x = 40;
+			_overGray.y = -28;
 
+			//Unit Array Setup
 			redUnits = new Array();
 			blueUnits = new Array();
 			
+			//Stage Stuff
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;		
@@ -101,11 +138,9 @@
 			segment.y = blueTower.y;
 			
 			//adding cursor
-			cursor = new Cursor();
-			
+			cursor = new Cursor();			
 			cursor.x = segments[0].getPin().x;
-			cursor.y = segments[0].getPin().y;
-			
+			cursor.y = segments[0].getPin().y;			
 			addChild(cursor);
 			
 			//Player Input Buttons
@@ -127,15 +162,19 @@
 			_giButton.height = 32;
 			addChild(_giButton);
 			
+			_retry.x = 190;
+			_retry.y = stage.stageHeight - 300;
+			
 			_giButton.addEventListener(MouseEvent.CLICK, giClick);
             _kniButton.addEventListener(MouseEvent.CLICK, kniClick);
             _arcButton.addEventListener(MouseEvent.CLICK, arcClick);
+			_retry.addEventListener(MouseEvent.CLICK, restartGame);
 
 			addEventListener(Event.ENTER_FRAME, update);
 
+			//Set up Foes!
 			for (var i:int = 0; i < 1; i++) {
-				var ru:Unit = new Unit();
-				//ru.unitMC = new Unit();
+				var ru:Unit = new Unit();				
 
 				ru.foes = blueUnits;
 				ru.buds = redUnits;
@@ -147,6 +186,7 @@
 				ru.y = stage.stageHeight * 0.09
 			}
 
+			//Set up Allies!
 			for (var ii:int = 0; ii < 1; ii++) {
 				var bu:Unit = new Unit();
 
@@ -174,13 +214,11 @@
 		
 		//Choose unit via button click
 		private function giClick(e:MouseEvent){
-			heroSelected = 3;
-		}
-		
+			heroSelected = 3;			
+		}		
 		private function kniClick(e:MouseEvent){
 			heroSelected = 1;
-		}
-		
+		}		
 		private function arcClick(e:MouseEvent){
 			heroSelected = 2;
 		}
@@ -228,28 +266,58 @@
 			yourField.text = "PlayerScore Score: " + yourScore;
 		}
 
-
 		private function update(e:Event):void {
-//			
-			if(blueUnits.length > 0){
+
+			//Game Over Logic
+			if(blueUnits.length > 0 && gameOver == false){
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
-					trace("lose 1");
-				}else if(blueUnits[0].winner == true){
+					gameOver = true;
+					trace("lose 1");	
+					
+				}else if(blueUnits[0].winner == true && gameOver == false){
 					win = true;
+					gameOver = true;
 					trace("win");
 				}
-			}else {
+			}else if (gameOver == false){
 				lose = true;
+				gameOver = true;
 				trace("lose 2");
 			}
-				
-//				
-//			} else {
-//				lose = true;
-//				trace(lose);
-//			}
 			
+			if(gameOver == true){
+				alphaCounter = alphaCounter - 1;
+				redCounter = 0;
+				blueCounter = 0;
+			}
+			
+			//Win GFX Go!
+			if(win == true && alphaCounter == 4){
+				addChild(_overWhite);
+				_overWhite.gotoAndPlay(3);	
+				addChild(_overGray);
+				_overGray.gotoAndPlay(3);
+				addChild(_winGfx);
+				_winGfx.gotoAndPlay(3);
+			}
+			
+			//Lose GFX Go!
+			if(lose == true && alphaCounter == 4){
+				addChild(_overWhite);
+				_overWhite.gotoAndPlay(3);	
+				addChild(_overGray);
+				_overGray.gotoAndPlay(3);
+				addChild(_loseGfx);
+				_loseGfx.gotoAndPlay(3);
+			}
+			
+			//Retry Button Go!
+			if(win == true || lose == true && alphaCounter == 0){
+				addChild(_retry);				
+			}			
+			
+			//Chain Create!!
 			var target: Point = reach(segments[0], mouseX, mouseY);
 			
 			for (var j:uint = 1; j < numSegments; j++) {
@@ -266,6 +334,7 @@
 			cursor.x = segments[0].getPin().x;
 			cursor.y = segments[0].getPin().y;
 
+			//Red Units!
 			for each(var red:Unit in redUnits) {
 				if (red.myScore > 0) {
 					yourScore += red.myScore;
@@ -294,15 +363,17 @@
 				}
 			}
 
+			//Unit Update Function
 			for (var i:int = 0; i < blueUnits.length; i++) {
 				blueUnits[i].update();
 			}
 			for (var ii:int = 0; ii < redUnits.length; ii++) {
 				redUnits[ii].update();
 			}
+			
+			//Custom Cursor
 			if (heroSelected == 1) {
-				cursor.gotoAndStop(2);
-				
+				cursor.gotoAndStop(2);				
 			}
 			else if(heroSelected == 2) {
 				cursor.gotoAndStop(3);
@@ -313,6 +384,7 @@
 			
 		}
 
+		//Segment Stuff
 		private function reach(segment:Segment, xpos:Number, ypos:Number):Point {
 			var dx:Number = xpos - segment.x;
 			var dy:Number = ypos - segment.y;
@@ -329,6 +401,23 @@
 		private function position(segmentA:Segment, segmentB:Segment):void {
 			segmentA.x = segmentB.getPin().x;
 			segmentA.y = segmentB.getPin().y;
+		}
+		
+		//Restart Game Functionality
+		private function restartGame(evt: MouseEvent): void {
+			
+			while (blueUnits.length > 0){
+				blueUnits[0].Purge();
+			}
+			while (redUnits.length > 0){
+				redUnits[0].Purge();
+			}
+			
+			var i: int = this.numChildren;
+			while (i--) {
+				removeChildAt(i);
+			}			
+			init();					
 		}
 
 	}

@@ -1,4 +1,5 @@
 ﻿package  unit{
+	import unit.LifeBar;
 	import unit.states.PursueState;
 	import unit.states.RetreatState;
 	import unit.states.AdvanceState;
@@ -22,6 +23,8 @@
 		public static const DIE:IUnitState = new DieState();
 		//public static const STATE:IUnitState = new "State"State();
 		public var myScore:Number = 0;
+		private var l:LifeBar;
+		public var lifeBarAlpha = 0;
 		
 		//Neutral animation 1
 		//Walk animation 3
@@ -64,15 +67,18 @@
 		//denotes red team.
 		
 		public var unitType:Number = 1;
-		public var unitHealth:Number = 10;
+		public var unitMAXHealth:Number = 25;
+		public var unitHealth:Number = unitMAXHealth;
 		//When health is 0, unit needs to be set to die
 		public var unitAttack:Number = 1;
 		//Base Damage from unit
-		public var unitAttackCooldown:Number = 10;
+		public var unitAttackCooldown:Number = 25;
 		//wait time between attacks
 		public var unitSpeed:Number = 0;
 		//units movement speed
 		public var randoShift:Number = (Math.random()*0.3)-0.15;
+		
+		private var healthBar:LifeBar = new LifeBar;
 		
 		public function setUnit(redEnemy:Boolean, whichType:Number):void
 		{
@@ -85,6 +91,8 @@
 					unitMC.width/=1.5
 					unitMC.height/=1.5
 					unitSpeed = 0;
+					unitMAXHealth = 100;
+					unitHealth = unitMAXHealth;
 					graphics.lineStyle(0, 0xFF0000, .2);
 					graphics.drawCircle(0, 0, nearRadius);
 					graphics.lineStyle(0, 0x00FF00,.2);
@@ -112,6 +120,8 @@
 					unitMC.width/=1.5
 					unitMC.height/=1.5
 					unitSpeed = 0;
+					unitMAXHealth = 100;
+					unitHealth = unitMAXHealth;
 					graphics.lineStyle(0, 0xFF0000, .2);
 					graphics.drawCircle(0, 0, nearRadius);
 					graphics.lineStyle(0, 0x00FF00,.2);
@@ -135,7 +145,20 @@
 				
 			}
 			addChild(unitMC);
+
+			
+			unitLifeBar();
 				
+		}
+		
+		public function unitLifeBar(){
+			l = new LifeBar();
+			l.setLifeBar(isRed);
+
+			addChild(l);
+
+			l.x = x -25;
+			l.y = y - 35;
 		}
 		
 		public function Unit() {
@@ -246,20 +269,39 @@
 			parent.removeChild(this);
 		}
 		public function update():void {
+			if(lifeBarAlpha > 0){
+				lifeBarAlpha -= 0.05
+				l.alpha = lifeBarAlpha;
+				
+			}
 			if(foes.length > 0){
 				if (foes[0].deadDragon == false){
 					if(buds.length > 0){
-						if (foes[0].deadDragon == false){
+						if (buds[0].deadDragon == false){
 							
 							
 							firstUpdate();
 							
 						}else{
 							setState(DIE);
+							if(alpha > 0){
+								alpha -= 0.005;
+							}
 						}
 					}else{
 						setState(DIE);
+						if(alpha > 0){
+							alpha -= 0.005;
+						}
 					}
+				}else {
+					if(alpha > 0 && alpha < 1){
+						alpha -= 0.02;
+					}
+				}
+			}else {
+				if(alpha > 0 && alpha < 1){
+					alpha -= 0.02;
 				}
 			}
 			
@@ -268,45 +310,48 @@
 			
 //			if(foes[0].unitType == 0){
 //				if(buds[0].unitType == 0){
+			l.unitLife = unitHealth / unitMAXHealth;
+			l.alpha = lifeBarAlpha;
+
+			l.update();
+			if(targetUnit == null){
+				targetUnit == foes[0];
+				setState(ADVANCE);
+			}
 			
-					if(targetUnit == null){
-						targetUnit == foes[0];
-						setState(ADVANCE);
-					}
-					
-					//if(unitCounter == 0){
-					baseJuxt = distanceBetweenBases;
-						//trace(baseJuxt);
-		
-					//}
-					
-					if(unitHealth <= 0){
-						setState(DIE);
-					}
-					
-					//u.setState(Unit.RETREAT);
-					unitCounter++; 
-					if (!currentState) return; 
-					
-					currentState.update(this);
-					x += velocity.x*speed;
-					y += velocity.y*speed;
-					
-					
-					try{
-						if (x + velocity.x > stage.stageWidth || x + velocity.x < 0) {
-							x = Math.max(0, Math.min(stage.stageWidth, x));
-							velocity.x *= -1;
-						}
-						if (y + velocity.y > stage.stageHeight || y + velocity.y < 0) {
-							y = Math.max(0, Math.min(stage.stageHeight, y));
-							velocity.y *= -1;
-						}
-					}catch(error:Error){
-						velocity.x = 0;
-						velocity.y = 0;
-					}
-					unitMC.rotation = RAD_DEG * Math.atan2(velocity.y, velocity.x);
+			//if(unitCounter == 0){
+			baseJuxt = distanceBetweenBases;
+				//trace(baseJuxt);
+
+			//}
+			
+			if(unitHealth <= 0){
+				setState(DIE);
+			}
+			
+			//u.setState(Unit.RETREAT);
+			unitCounter++; 
+			if (!currentState) return; 
+			
+			currentState.update(this);
+			x += velocity.x*speed;
+			y += velocity.y*speed;
+			
+			
+			try{
+				if (x + velocity.x > stage.stageWidth || x + velocity.x < 0) {
+					x = Math.max(0, Math.min(stage.stageWidth, x));
+					velocity.x *= -1;
+				}
+				if (y + velocity.y > stage.stageHeight || y + velocity.y < 0) {
+					y = Math.max(0, Math.min(stage.stageHeight, y));
+					velocity.y *= -1;
+				}
+			}catch(error:Error){
+				velocity.x = 0;
+				velocity.y = 0;
+			}
+			unitMC.rotation = RAD_DEG * Math.atan2(velocity.y, velocity.x);
 //				}else{
 //					setState(DIE);
 //				}
