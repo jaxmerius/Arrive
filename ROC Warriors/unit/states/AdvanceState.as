@@ -19,7 +19,7 @@
 				u.setState(Unit.PURSUE);
 			}
 
-			//Is the unit a Dragon not moving while sitting on a tower? Maybe turning a bit though...
+			//Is the unit a Dragon not moving while sitting on a tower?
 			if (u.unitType == 0)
 			{
 				u.velocity.x +=  Math.random() * 0.2 - 0.1;
