@@ -104,16 +104,22 @@
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = 1.75;
+					unitMAXHealth = 20;
+					unitHealth = unitMAXHealth;
 				}else if (unitType == 3){
 					unitMC = new RedUnit3();
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = 1.5;
+					unitMAXHealth = 50;
+					unitHealth = unitMAXHealth;
 				}else{
 					unitMC = new RedUnit1();
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = 2;
+					unitMAXHealth = 30;
+					unitHealth = unitMAXHealth;
 				}
 				
 			}else{
@@ -133,16 +139,22 @@
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = .875;
+					unitMAXHealth = 20;
+					unitHealth = unitMAXHealth;
 				}else if(unitType == 3){
 					unitMC = new BlueUnit3();
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = .75;
+					unitMAXHealth = 50;
+					unitHealth = unitMAXHealth;
 				}else{
 					unitMC = new BlueUnit1();
 					unitMC.width/=2
 					unitMC.height/=2
 					unitSpeed = 1;
+					unitMAXHealth = 30;
+					unitHealth = unitMAXHealth;
 				}
 				
 			}
