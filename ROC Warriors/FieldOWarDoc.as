@@ -42,11 +42,11 @@
 			addChild(Mcursor);
 			Mcursor.gotoAndStop(1);
 
-			stage.addEventListener(MouseEvent.CLICK, startGameHandler);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 			addEventListener(Event.ENTER_FRAME, onEnterFrames);
 		}
 
-		private function startGameHandler(evt: MouseEvent): void {
+		private function startGameHandler(evt: KeyboardEvent): void {
 			
 			//evt.currentTarget.removeEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 
@@ -69,7 +69,7 @@
 			
 		private function startStart(): void {
 			
-			KBV.currentTarget.removeEventListener(MouseEvent.CLICK, startGameHandler);
+			KBV.currentTarget.removeEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 
 			removeEventListener(Event.ENTER_FRAME, onEnterFrames);
 			
