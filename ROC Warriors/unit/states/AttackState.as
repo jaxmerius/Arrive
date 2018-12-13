@@ -92,11 +92,11 @@
 				if(u.targetUnit.unitType == 0){
 					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					u.attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (10 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					u.attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (10 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					u.attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (20 * u.unitAttack);
 				}
 			}else if(u.unitType == 1){
 				if(u.targetUnit.unitType == 0){
@@ -104,7 +104,7 @@
 				}else if(u.targetUnit.unitType == 1){
 					u.attackDamage =  (2 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					u.attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (4 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
 					u.attackDamage =  (u.unitAttack);
 				}
@@ -116,13 +116,13 @@
 				}else if(u.targetUnit.unitType == 2){
 					u.attackDamage =  (2 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					u.attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (4 * u.unitAttack);
 				}
 			}else if(u.unitType == 3){
 				if(u.targetUnit.unitType == 0){
 					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					u.attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (4 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
 					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
