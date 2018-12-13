@@ -299,6 +299,7 @@
 		//Set up score text
 		public function scoring():void {
 			yourField.text = "PlayerScore Score: " + yourScore;
+			blueCounter+=5;
 		}
 
 		private function update(e:Event):void {
