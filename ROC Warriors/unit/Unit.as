@@ -24,12 +24,9 @@
 		//public static const STATE:IUnitState = new "State"State();
 		public var myScore:Number = 0;
 		private var l:LifeBar;
-		public var arro:ArrowClass;
 		public var lifeBarAlpha = 0;
-		
 		public var attackCounter:Number = 2;
 		public var attackDamage:Number = 1;
-		
 		
 		//Neutral animation 1
 		//Walk animation 3
@@ -39,7 +36,6 @@
 		
 		public var foes:Array;
 		public var buds:Array;
-		public var projectile:Array;
 		
 		public var targetUnit:Object;
 		public var attacker:Object;
@@ -68,7 +64,6 @@
 		public var beingAttacked:Boolean = false;
 		public var deadDragon:Boolean = false;
 		public var winner:Boolean = false;
-		public var isArrow:Boolean = false;
 		
 		public var isRed:Boolean = true;
 		//denotes red team.
@@ -89,11 +84,8 @@
 		
 		public function setUnit(redEnemy:Boolean, whichType:Number):void
 		{
-			
-			projectile = new Array();
 			isRed = redEnemy;
 			unitType = whichType;
-			
 			
 			if(isRed == true){
 				if (unitType == 0){
@@ -159,14 +151,6 @@
 			
 			unitLifeBar();
 				
-		}
-		
-		public function unitArrow(){
-			arro = new ArrowClass();
-			arro.setArrow(isRed, targetUnit, distanceToUnit, attackDamage, Unit);
-			trace("ARROW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			addChild(arro);
-			projectile.push(arro);
 		}
 		
 		public function unitLifeBar(){
@@ -287,8 +271,6 @@
 			parent.removeChild(this);
 		}
 		public function update():void {
-			
-			
 			if(lifeBarAlpha > 0){
 				lifeBarAlpha -= 0.05
 				l.alpha = lifeBarAlpha;
@@ -327,11 +309,6 @@
 			
 		}
 		public function firstUpdate():void {
-			if(projectile.length > 0){
-				if(arro.isDone == false){
-					arro.update();
-				}
-			}
 			
 //			if(foes[0].unitType == 0){
 //				if(buds[0].unitType == 0){
