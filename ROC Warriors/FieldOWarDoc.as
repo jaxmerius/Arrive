@@ -12,6 +12,7 @@
 		private var startScreen: StartScreen = new StartScreen();
 		private var background: Background = new Background();
 		private var Mcursor: MovieClip = new Cursor();
+		private var title: MovieClip = new TitleScreenText();
 		
 		private var Animated:Boolean = false;
 		private var KBV:MouseEvent;
@@ -28,17 +29,17 @@
 			background.width = stage.stageWidth;
 			background.height = stage.stageHeight;
 
-			//title.x = 0;
-			//title.y = 200;
-			//title.width = stage.stageWidth;
-			//title.height = stage.stageHeight;
+			title.x = 0;
+			title.y = 200;
+			title.width = stage.stageWidth;
+			title.height = stage.stageHeight;
 
 			startScreen.x = 0;
 			startScreen.y = 198;
 
 			addChild(background);
 			addChild(startScreen);
-			//addChild(title);
+			addChild(title);
 			addChild(Mcursor);
 			Mcursor.gotoAndStop(1);
 
@@ -57,7 +58,7 @@
 			}else{
 				this.removeChild(background);
 				this.removeChild(startScreen);
-				//this.removeChild(title);	
+				this.removeChild(title);	
 				
 				Animated = true;
 				gotoAndPlay(2);
