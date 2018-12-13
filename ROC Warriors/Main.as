@@ -31,6 +31,9 @@
 		public var bg:MovieClip;
 		public var redTower:MovieClip;
 		public var blueTower:MovieClip;
+		public var resourceBar:MovieClip;
+		
+		private var resourcepoints:Number = 200;
 
 		public var yourScore:Number = 0;
 		private var hiScore:Number;
@@ -86,7 +89,7 @@
 			bg.width = stage.stageWidth;
 			bg.height = stage.stageHeight;
 
-			//blueTower
+			//Blue Tower
 			blueTower = new BTower();
 			addChild(blueTower);
 			blueTower.x = stage.stageWidth / 2;
@@ -96,7 +99,14 @@
 			redTower = new RTower();
 			addChild(redTower);
 			redTower.x = stage.stageWidth / 2;
-			redTower.y = stage.stageHeight * 0.12			
+			redTower.y = stage.stageHeight * 0.12
+			
+			//Resource Bar
+			resourceBar = new ResourceBar
+			addChild(resourceBar);
+			resourceBar.x = stage.stageWidth / 12;
+			resourceBar.y = stage.stageHeight * 0.66;
+			
 			
 			//Score placement
 			yourField = new TextField;
