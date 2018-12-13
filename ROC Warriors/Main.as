@@ -299,7 +299,7 @@
 		//Set up score text
 		public function scoring():void {
 			yourField.text = "PlayerScore Score: " + yourScore;
-			blueCounter+=5;
+			
 		}
 
 		private function update(e:Event):void {
@@ -377,6 +377,8 @@
 				if (red.myScore > 0) {
 					yourScore += red.myScore;
 					red.myScore = 0;
+					blueCounter+=1;
+					//increase resourse for each dead enemy
 					yourField.text = "PlayerScore Score: " + yourScore;
 				}
 			}
