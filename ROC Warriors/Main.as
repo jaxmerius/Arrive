@@ -377,7 +377,7 @@
 				if (red.myScore > 0) {
 					yourScore += red.myScore;
 					red.myScore = 0;
-					if(bluecounter<20){
+					if(blueCounter<20){
 						blueCounter+=1;
 					}
 					//increase resourse for each dead enemy
