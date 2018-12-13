@@ -4,14 +4,14 @@
 	//import unit.LifeBar;
 	public class AttackState implements IUnitState
 	{
-		private var attackCounter:Number = 2;
-		private var attackDamage:Number = 1;
+//		private var attackCounter:Number = 2;
+//		private var attackDamage:Number = 1;
 		public function update(u:Unit):void
 		{
 			u.lifeBarAlpha = 1;
 			u.faceUnit(1);
 
-			if (u.unitCounter == attackCounter)
+			if (u.unitCounter == u.attackCounter)
 			{
 
 				
@@ -22,7 +22,12 @@
 			
 			if(u.unitType == 2){
 				if(u.distanceToUnit > (1.5 * u.farRadius)){
-			    u.setState(Unit.PURSUE);
+					u.targetUnit.unitHealth -=  2*u.attackDamage;
+					
+					u.setState(Unit.PURSUE);
+				}else{
+					u.targetUnit.unitHealth -=  u.attackDamage;
+					
 				}
 				
 			}
@@ -31,7 +36,7 @@
 				u.setState(Unit.PURSUE);
 
 			}else {
-				u.targetUnit.unitHealth -=  attackDamage;
+				u.targetUnit.unitHealth -=  u.attackDamage;
 				u.targetUnit.attacker = u;
 				u.targetUnit.beingAttacked = true;
 				
@@ -70,7 +75,7 @@
 			u.unitCounter = 0;
 			if (u.unitType == 2)
 			{
-				attackCounter = 13;
+				u.attackCounter = 9;
 			}
 			u.faceUnit(1);
 			if (u.targetUnit.unitHealth <= 0)
@@ -85,43 +90,43 @@
 			
 			if(u.unitType == 0){
 				if(u.targetUnit.unitType == 0){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (5 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (5 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					attackDamage = (5 * u.unitAttack);
+					u.attackDamage = (5 * u.unitAttack);
 				}
 			}else if(u.unitType == 1){
 				if(u.targetUnit.unitType == 0){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					attackDamage =  (2 * u.unitAttack);
+					u.attackDamage =  (2 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (3 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}
 			}else if(u.unitType == 2){
 				if(u.targetUnit.unitType == 0){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					attackDamage =  (2 * u.unitAttack);
+					u.attackDamage =  (2 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (3 * u.unitAttack);
 				}
 			}else if(u.unitType == 3){
 				if(u.targetUnit.unitType == 0){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 1){
-					attackDamage =  (3 * u.unitAttack);
+					u.attackDamage =  (3 * u.unitAttack);
 				}else if(u.targetUnit.unitType == 2){
-					attackDamage =  (u.unitAttack);
+					u.attackDamage =  (u.unitAttack);
 				}else if(u.targetUnit.unitType == 3){
-					attackDamage =  (2 * u.unitAttack);
+					u.attackDamage =  (2 * u.unitAttack);
 				}
 			}
 		}
