@@ -32,8 +32,8 @@
 		public var redTower:MovieClip;
 		public var blueTower:MovieClip;
 		public var resourceBar:MovieClip;
-		
-		private var resourcepoints:Number = 200;
+		private var _reBox:MovieClip;
+		private var resourceBarBar:MovieClip;
 
 		public var yourScore:Number = 0;
 		private var hiScore:Number;
@@ -45,6 +45,8 @@
 		private var numSegments:uint = 26;
 		
 		public var cursor:MovieClip;
+		
+		private var preBlueCounter:Number;
 		
 		private var heroSelected:Number = 1;
 		
@@ -69,6 +71,7 @@
 			
 			//set up stage
 			redCounter = 0;
+			preBlueCounter = 0;
 			blueCounter = 0;
 			alphaCounter = 10;
 			
@@ -101,12 +104,19 @@
 			redTower.x = stage.stageWidth / 2;
 			redTower.y = stage.stageHeight * 0.12
 			
-			//Resource Bar
-			resourceBar = new ResourceBar
+			//Resource Bar			
+			resourceBar = new resoourceFill();
+			resourceBarBar = new ResourceBar();
+			resourceBarBar.x = stage.stageWidth / 20;
+			resourceBarBar.y = stage.stageHeight * 0.68;
+			addChild(resourceBarBar);
 			addChild(resourceBar);
-			resourceBar.x = stage.stageWidth / 12;
-			resourceBar.y = stage.stageHeight * 0.66;
-			
+			resourceBar.x = stage.stageWidth / 20;
+			resourceBar.y = stage.stageHeight * 0.68;	
+			_reBox = new resourceBox();
+			_reBox.x = stage.stageWidth / 19;
+			_reBox.y = stage.stageHeight * 0.68;
+			addChild(_reBox);
 			
 			//Score placement
 			yourField = new TextField;
@@ -216,9 +226,24 @@
 
 		//Place Unit on the Field
 		private function mouseClick(e:MouseEvent):void {
-			if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0 && segments[0].getPin().y < stage.stageHeight - 30) {
+			//if (blueCounter > 19 && blueUnits[0].unitType == 0 && redUnits[0].unitType == 0 && segments[0].getPin().y < stage.stageHeight - 30) {
+				//createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
+				//blueCounter = 0;
+			//}
+			
+			if (heroSelected == 1 && blueCounter >= 2){
+				blueCounter -= 2;
 				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
-				blueCounter = 0;
+			}
+			
+			if(heroSelected == 2 && blueCounter >= 3){
+				blueCounter -= 3;
+				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
+			}
+			
+			if(heroSelected == 3 && blueCounter >= 5){
+				blueCounter -= 5;
+				createBlueUnit(heroSelected, segments[0].getPin().x, segments[0].getPin().y);
 			}
 		}
 		
@@ -278,6 +303,8 @@
 
 		private function update(e:Event):void {
 
+			//Resource Logic
+			
 			//Game Over Logic
 			if(blueUnits.length > 0 && gameOver == false){
 				if (blueUnits[0].deadDragon == true) {
@@ -352,10 +379,20 @@
 					yourField.text = "PlayerScore Score: " + yourScore;
 				}
 			}
-
-			if (blueCounter <= 20 ) {				
+			
+			if (preBlueCounter < 12) {
+				preBlueCounter++;
+			} else {
+				if (blueCounter <= 20 ) {				
 					blueCounter++;				
+				}
+				preBlueCounter = 0;
 			}
+			
+			resourceBar.height = blueCounter * 10;
+			
+			trace("BlueCounter: ", blueCounter);
+			trace("Height: ", resourceBar.height);
 			
 			if (redCounter < 60)  {
 				redCounter++;
