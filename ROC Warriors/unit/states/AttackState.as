@@ -26,7 +26,7 @@
 					
 					u.setState(Unit.PURSUE);
 				}else{
-					u.targetUnit.unitHealth -=  u.attackDamage;
+					u.targetUnit.unitHealth -=  2*u.attackDamage;
 					
 				}
 				
