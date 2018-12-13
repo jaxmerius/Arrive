@@ -13,6 +13,9 @@
 		private var background: Background = new Background();
 		private var title: TitleScreenText = new TitleScreenText();
 		private var Mcursor: MovieClip = new Cursor();
+		
+		private var Animated:Boolean = false;
+		private var KBV:KeyboardEvent;
 
 		public function FieldOWarDoc() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -45,14 +48,32 @@
 		}
 
 		private function startGameHandler(evt: KeyboardEvent): void {
-			this.removeChild(background);
-			this.removeChild(startScreen);
-			this.removeChild(title);
-			evt.currentTarget.removeEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
+			
+			//evt.currentTarget.removeEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
+
+			//removeEventListener(Event.ENTER_FRAME, onEnterFrames);
+			KBV = evt;
+			if (Animated == true){
+				gotoAndPlay(202);
+			}else{
+				this.removeChild(background);
+				this.removeChild(startScreen);
+				this.removeChild(title);	
+				
+				Animated = true;
+				gotoAndPlay(2);
+			
+			}
+		}
+
+			
+			
+		private function startStart(): void {
+			
+			KBV.currentTarget.removeEventListener(KeyboardEvent.KEY_DOWN, startGameHandler);
 
 			removeEventListener(Event.ENTER_FRAME, onEnterFrames);
-
-
+			
 			createGame();
 		}
 

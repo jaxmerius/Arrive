@@ -310,17 +310,17 @@
 				if (blueUnits[0].deadDragon == true) {
 					lose = true;
 					gameOver = true;
-					trace("lose 1");	
+					//trace("lose 1");	
 					
 				}else if(blueUnits[0].winner == true && gameOver == false){
 					win = true;
 					gameOver = true;
-					trace("win");
+					//trace("win");
 				}
 			}else if (gameOver == false){
 				lose = true;
 				gameOver = true;
-				trace("lose 2");
+				//trace("lose 2");
 			}
 			
 			if(gameOver == true){
@@ -391,8 +391,8 @@
 			
 			resourceBar.height = blueCounter * 10;
 			
-			trace("BlueCounter: ", blueCounter);
-			trace("Height: ", resourceBar.height);
+			//trace("BlueCounter: ", blueCounter);
+			//trace("Height: ", resourceBar.height);
 			
 			if (redCounter < 60)  {
 				redCounter++;
