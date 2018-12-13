@@ -14,7 +14,7 @@
 		private var Mcursor: MovieClip = new Cursor();
 		
 		private var Animated:Boolean = false;
-		private var KBV:KeyboardEvent;
+		private var KBV:MouseEvent;
 
 		public function FieldOWarDoc() {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
